@@ -8,7 +8,7 @@ const Banner = () => {
         backgroundImage: `linear-gradient(0deg, rgb(17, 17, 17), rgba(17, 17, 17, 0) 100%), url("/banner.png")`,
       }}
     >
-      <div className="space-y-3">
+      <div className="space-y-4">
         <h2 className="text-2xl md:text-4xl font-semibold font-main text-white text-center">
           Discover and Share Knowledge
         </h2>

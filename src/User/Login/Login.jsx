@@ -1,66 +1,79 @@
-import React, { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import React, { use } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
 import Google from "../../shared/Google";
+import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
+import { UserInDb } from "../../Utils/utils";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Handle your login logic here (API call, Firebase auth, etc.)
-    console.log("Logging in with:", email, password);
-  };
-
-  const handleGoogleLogin = () => {
-    // Handle your Google login logic here (Firebase Google Auth, etc.)
-    console.log("Logging in with Google");
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {login,user} = useAuth()
+  const navigate = useNavigate()
+  const onSubmit =(data) => {
+    login(data.email,data.password)
+    .then(async(userCredential) => {
+        const user = userCredential.user;
+        toast.success("Successfully logged in")
+        navigate("/")
+        const userData = {
+          name : user.displayName,
+          email : user.email,
+          image : user.photoURL,
+          role : 'user',
+          createdAt : new Date().toISOString(),
+          lastLoggedIn : new Date().toISOString()
+        }
+        await UserInDb(userData)
+      })
+      .catch((error) => {
+        console.log(error)
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+    
   };
 
   return (
     <div className="max-w-[1600px] mx-auto">
       <div className="flex items-center justify-center my-20">
         <div className="card-body dark:bg-white max-w-md border border-[#0F0F0F26] rounded-md">
-          <h2 className="text-2xl font-semibold mt-4 mb-2 border-b border-b-[#0F0F0F26] pb-4 text-center">
-            Login Your Account
-          </h2>
+          <h2 className="text-2xl font-semibold mt-4 mb-2 border-b border-b-[#0F0F0F26] pb-4 text-center">Login Your Account</h2>
 
-          <Google></Google>
+          <Google />
           <div className="divider">OR</div>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <label className="label text-[14px] font-medium mb-1">Email</label>
             <input
               type="email"
-              name="email"
+              {...register("email", { required: "Email is required" })}
               className="input w-full mb-2"
               placeholder="Email"
             />
-            <label className="label text-[14px] font-medium mb-1">
-              Password
-            </label>
-            <div className="">
-              <input
-                type="password"
-                pattern="^(?=.*[a-z])(?=.*[A-Z]).{6,}$"
-                name="password"
-                className="input w-full "
-                placeholder="Password"
-              />
-            </div>
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+
+            <label className="label text-[14px] font-medium mb-1">Password</label>
+            <input
+              type="password"
+              {...register("password", { required: "Password is required", pattern: { value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/, message: "Must contain upper and lower case, min 6 characters" } })}
+              className="input w-full"
+              placeholder="Password"
+            />
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
+
             <div className="mt-2 flex justify-between">
               <label className="flex items-center gap-2">
                 <input type="checkbox" />
                 Remember me
               </label>
-              <a className="link link-hover ">Forgot password?</a>
+              <a className="link link-hover">Forgot password?</a>
             </div>
-            <button className={`btn btn-neutral mt-4 w-full`}>Login</button>
+
+            <button type="submit" className="btn btn-neutral mt-4 w-full">Login</button>
+
             <p className="text-center text-[14px] mt-2 font-medium">
-              Don't have an account .{" "}
-              <Link to={"/register"} className="text-red-400 underline">
-                Register
-              </Link>
+              Don't have an account?{' '}
+              <Link to="/register" className="text-red-400 underline">Register</Link>
             </p>
           </form>
         </div>

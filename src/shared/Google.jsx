@@ -1,8 +1,38 @@
 import React from "react";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { UserInDb } from "../Utils/utils";
 
 const Google = () => {
+  const { google } = useAuth();
+  const navigate = useNavigate();
+  const handleGoogle = () => {
+    google()
+      .then(async (result) => {
+        const user = result.user;
+        toast.success("Successfully logged in");
+        navigate("/");
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+          role: "user",
+          createdAt: new Date().toISOString(),
+          lastLoggedIn: new Date().toISOString(),
+        };
+        await UserInDb(userData);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
   return (
-    <button className="btn bg-white w-full mt-2 text-black border-[#e5e5e5]">
+    <button
+      onClick={handleGoogle}
+      className="btn bg-white w-full mt-2 text-black border-[#e5e5e5]"
+    >
       <svg
         aria-label="Google logo"
         width="16"
