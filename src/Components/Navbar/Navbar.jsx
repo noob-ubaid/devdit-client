@@ -69,7 +69,7 @@ console.log(user)
               {links}
             </ul>
           </div>
-          <Logo />
+          <Logo footer={false}/>
         </div>
 
         <div className="hidden lg:flex flex-col lg:flex-row items-center gap-4 lg:gap-0">
