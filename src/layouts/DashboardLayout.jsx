@@ -1,9 +1,8 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router";
-import {
-  FaHome,
-} from "react-icons/fa";
-import Logo from "../shared/Logo"
+import { Link, NavLink, Outlet } from "react-router";
+import { FaHome, FaUser } from "react-icons/fa";
+import { MdAddCircleOutline, MdOutlineArticle } from "react-icons/md";
+import Logo from "../shared/Logo";
 const DashboardLayout = () => {
   return (
     <div>
@@ -35,7 +34,9 @@ const DashboardLayout = () => {
             </div>
           </div>
           {/* Page content here */}
-          <Outlet></Outlet>
+          <div className="md:p-8 p-4">
+            <Outlet></Outlet>
+          </div>
           {/* Page content here */}
         </div>
         <div className="drawer-side">
@@ -44,16 +45,49 @@ const DashboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-main/80 text-base-content min-h-full w-80 p-4">
-            {/* Sidebar content here */}
-          <Logo footer={true}/>
-            <li>
-              <NavLink className={`text-white`} to="/">
-                <FaHome className="inline-block text-white mr-2" />
-                Home
+          <ul className="menu bg-main  min-h-full w-80 p-4">
+            {/* Sidebar content here */},
+            <Link to="/">
+              <Logo footer={true} />
+            </Link>
+            <li className="mt-6 flex flex-col gap-2">
+              <NavLink
+                end
+                to="/dashboard"
+                className={({ isActive }) =>
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    isActive ? "bg-base-200 text-main" : "text-white"
+                  }`
+                }
+              >
+                <FaUser className="inline-block" />
+                My Profile
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/addPost"
+                className={({ isActive }) =>
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    isActive ? "bg-base-200 text-main" : "text-white"
+                  }`
+                }
+              >
+                <MdAddCircleOutline className="inline-block" />
+                Add Post
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/myPost"
+                className={({ isActive }) =>
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    isActive ? "bg-base-200 text-main" : "text-white"
+                  }`
+                }
+              >
+                <MdOutlineArticle className="inline-block" />
+                My Posts
               </NavLink>
             </li>
-           
           </ul>
         </div>
       </div>
