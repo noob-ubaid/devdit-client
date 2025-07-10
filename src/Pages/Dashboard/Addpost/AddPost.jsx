@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import Loader from "../../../shared/LOader";
+import { Link } from "react-router";
 
 const AddPost = () => {
   const tags = [
@@ -20,6 +22,18 @@ const AddPost = () => {
   const { user } = useAuth();
   const [tag, setTag] = useState("JavaScript");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${import.meta.env.VITE_API_URL}/posts/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      });
+  }, [user]);
+  if (loading) return <Loader />;
   const handleTag = (e) => {
     setTag(e.target.value);
   };
@@ -33,7 +47,7 @@ const AddPost = () => {
     const email = user?.email;
     const image = user?.photoURL;
     const title = form.title.value;
-    const date = new Date().toDateString()
+    const date = new Date().toDateString();
     const data = {
       name,
       email,
@@ -42,10 +56,10 @@ const AddPost = () => {
       description,
       tag,
       date,
-      UpVote : 0,
-      DownVote : 0,
+      UpVote: 0,
+      DownVote: 0,
     };
-     // post method
+    // post method
     fetch(`${import.meta.env.VITE_API_URL}/add-post`, {
       method: "POST",
       headers: {
@@ -58,6 +72,28 @@ const AddPost = () => {
         toast.success("Successfully added food items");
       });
   };
+  if (posts.length === 5)
+    return (
+      <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 text-center px-4 mt-6 rounded-md">
+        <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">
+          Post Limit Reached
+        </h4>
+        <p className="mt-4 max-w-2xl font-second text-center mx-auto text-[#141414B3]">
+          You have reached your 5-post limit for free users. Become a member to
+          add unlimited posts and continue sharing your ideas with the
+          community.
+        </p>
+        <div className="mt-8">
+          <Link
+            to="/membership"
+            className="bg-main/90 hover:bg-main text-white font-medium px-8 py-3 rounded-full duration-300"
+          >
+            Become a Member
+          </Link>
+        </div>
+      </div>
+    );
+
   return (
     <div>
       <h1 className="text-center text-2xl font-main md:text-3xl  lg:text-4xl font-semibold mt-8 md:mt-12">

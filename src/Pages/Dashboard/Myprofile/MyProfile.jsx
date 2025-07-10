@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import Loader from "../../../shared/LOader";
 import PostCard from "./PostCard";
+import { Link } from "react-router";
 const MyProfile = () => {
   const { user } = useAuth();
   const [role, setRole] = useState(null);
@@ -25,6 +26,7 @@ const MyProfile = () => {
         setLoading(false);
       });
   }, [user]);
+
   if (loading) return <Loader />;
   return (
     <div>
@@ -51,19 +53,35 @@ const MyProfile = () => {
         </div>
       </div>
       <div>
-        <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium font-main mt-10 md:mt-14">
-          My Recent posts
-        </h2>
-
         {posts.length === 0 ? (
-          <p className="text-center mt-6 text-gray-500">
-            You haven't added any posts yet.
-          </p>
+          <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
+            <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">
+              You haven’t added any posts yet
+            </h4>
+            <p className="mt-4 font-second max-w-2xl text-center mx-auto text-[#141414B3]">
+              Start building your presence by adding your first post, sharing
+              your ideas with others, and growing your knowledge within the
+              community.{" "}
+            </p>
+            <div className="mt-10">
+              <Link
+                to="/dashboard/addPost"
+                className="bg-main mt-6 text-white font-second font-medium px-8 py-3 rounded-full"
+              >
+                Add Post
+              </Link>
+            </div>
+          </div>
         ) : (
-          <div className="grid grid-cols-1 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-            {posts.map((post) => (
-              <PostCard key={post._id} post={post} />
-            ))}
+          <div>
+            <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium font-main mt-10 md:mt-14">
+              My Recent posts
+            </h2>
+            <div className="grid grid-cols-1 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+              {posts.map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))}
+            </div>
           </div>
         )}
       </div>

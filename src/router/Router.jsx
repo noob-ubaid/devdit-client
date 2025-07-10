@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
       },
       {
         path : "addPost",
-        Component  : AddPost
+        Component  : AddPost,
       },
       {
         path : "myPost",

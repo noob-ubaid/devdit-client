@@ -38,7 +38,7 @@ const MyPost = () => {
 }
   return (
     <div>
-      <h2 className="text-center font-medium font-main text-2xl md:text-3xl mt-3">
+      <h2 className="text-center font-medium font-main text-2xl md:text-3xl lg:text-4xl mt-3">
         My Posts
       </h2>
       <div className="overflow-x-auto mt-6">
