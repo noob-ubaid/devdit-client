@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { FaHome, FaUser } from "react-icons/fa";
 import { MdAddCircleOutline, MdOutlineArticle } from "react-icons/md";
+import { IoHome } from "react-icons/io5";
 import Logo from "../shared/Logo";
 const DashboardLayout = () => {
   return (
@@ -51,11 +52,12 @@ const DashboardLayout = () => {
               <Logo footer={true} />
             </Link>
             <li className="mt-6 flex flex-col gap-2">
+            
               <NavLink
                 end
                 to="/dashboard"
                 className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 rounded-lg transition-colors ${
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
                     isActive ? "bg-base-200 text-main" : "text-white"
                   }`
                 }
@@ -67,7 +69,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/dashboard/addPost"
                 className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 rounded-lg transition-colors ${
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
                     isActive ? "bg-base-200 text-main" : "text-white"
                   }`
                 }
@@ -79,7 +81,7 @@ const DashboardLayout = () => {
               <NavLink
                 to="/dashboard/myPost"
                 className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 rounded-lg transition-colors ${
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
                     isActive ? "bg-base-200 text-main" : "text-white"
                   }`
                 }

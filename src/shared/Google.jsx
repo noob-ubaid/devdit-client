@@ -1,18 +1,19 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { UserInDb } from "../Utils/utils";
 
 const Google = () => {
   const { google } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation()
   const handleGoogle = () => {
     google()
       .then(async (result) => {
         const user = result.user;
         toast.success("Successfully logged in");
-        navigate("/");
+        navigate(`${location.state ? location.state : "/"}`)
         const userData = {
           name: user.displayName,
           email: user.email,

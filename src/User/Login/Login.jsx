@@ -1,6 +1,6 @@
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Google from "../../shared/Google";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
@@ -10,12 +10,13 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const {login,user} = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const onSubmit =(data) => {
     login(data.email,data.password)
     .then(async(userCredential) => {
         const user = userCredential.user;
         toast.success("Successfully logged in")
-        navigate("/")
+        navigate(`${location.state ? location.state : "/"}`)
         const userData = {
           name : user.displayName,
           email : user.email,

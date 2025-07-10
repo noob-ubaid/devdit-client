@@ -1,41 +1,71 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
-import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Loader from "../../../shared/LOader";
+import PostCard from "./PostCard";
 const MyProfile = () => {
   const { user } = useAuth();
   const [role, setRole] = useState(null);
-  const [loading,setLoading] = useState(true)
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}/users/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-         setRole(data)
-         setLoading(false)
+        setRole(data);
+        setLoading(false);
       });
   }, [user]);
-  if(loading) return <Loader/>
+  useEffect(() => {
+    setLoading(true);
+    fetch(`${import.meta.env.VITE_API_URL}/profile/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      });
+  }, [user]);
+  if (loading) return <Loader />;
   return (
     <div>
-      <div className="flex items-center justify-between mt-6 md:mt-0 bg-base-200 p-4 md:p-6 rounded-md">
-        <div className="flex items-center gap-4">
+      <div className="flex items-center flex-col md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-2 md:p-6 rounded-md">
+        <div className="flex items-center gap-2 md:gap-4">
           <img
-            className="size-14 md:size-16 rounded-full"
+            className="size-12 md:size-16 rounded-full"
             src={user?.photoURL}
             alt=""
           />
           <div>
-            <p className="text-xl font-bold ">{user?.displayName}</p>
-            <p className="text-lg font-semibold">{user?.email}</p>
+            <p className="md:text-xl text-lg font-main md:font-bold font-semibold ">
+              {user?.displayName}
+            </p>
+            <p className="md:text-lg text-base font-main font-medium md:font-semibold">
+              {user?.email}
+            </p>
           </div>
         </div>
         <div>
-          <button className="bg-main font-medium px-3 py-1 rounded-full text-white">
+          <button className="bg-main font-medium mt-3 md:mt-0 font-second px-3 py-1 rounded-full text-white">
             {role?.role === "user" ? "Bronze" : "Gold"}
           </button>
         </div>
+      </div>
+      <div>
+        <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium font-second mt-10 md:mt-14">
+          My Recent posts
+        </h2>
+
+        {posts.length === 0 ? (
+          <p className="text-center mt-6 text-gray-500">
+            You haven't added any posts yet.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <PostCard key={post._id} post={post} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

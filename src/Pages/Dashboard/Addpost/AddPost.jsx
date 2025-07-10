@@ -18,7 +18,7 @@ const AddPost = () => {
     "API Integration",
   ];
   const { user } = useAuth();
-  const [tag, setTag] = useState("");
+  const [tag, setTag] = useState("JavaScript");
   const [description, setDescription] = useState("");
   const handleTag = (e) => {
     setTag(e.target.value);
@@ -33,6 +33,7 @@ const AddPost = () => {
     const email = user?.email;
     const image = user?.photoURL;
     const title = form.title.value;
+    const date = new Date().toDateString()
     const data = {
       name,
       email,
@@ -40,6 +41,7 @@ const AddPost = () => {
       title,
       description,
       tag,
+      date,
       UpVote : 0,
       DownVote : 0,
     };
@@ -58,7 +60,7 @@ const AddPost = () => {
   };
   return (
     <div>
-      <h1 className="text-center text-2xl md:text-3xl  lg:text-4xl font-semibold mt-8 md:mt-12">
+      <h1 className="text-center text-2xl font-main md:text-3xl  lg:text-4xl font-semibold mt-8 md:mt-12">
         Share Your Thoughts
       </h1>
       <form onSubmit={handleSubmit}>
@@ -96,7 +98,7 @@ const AddPost = () => {
 
           <button
             type="submit"
-            className="bg-main w-full text-white font-medium md:px-8 md:py-2.5 px-4 py-2 rounded"
+            className="bg-main w-full font-second text-white font-medium md:px-8 md:py-2.5 px-4 py-2 rounded"
           >
             Post
           </button>

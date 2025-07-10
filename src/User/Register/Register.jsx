@@ -1,6 +1,6 @@
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Google from "../../shared/Google";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -12,6 +12,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const location = useLocation()
   const { register: signUp, user, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
   const onSubmit = (data) => {
@@ -27,7 +28,7 @@ const Register = () => {
             setUser(user);
             toast(error);
           });
-        navigate("/");
+        navigate(`${location.state ? location.state : "/"}`)
         const userData = {
           name: data.name,
           email: data.email,
