@@ -13,7 +13,7 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const location = useLocation()
-  const { register: signUp, user, setUser, updateUser } = useAuth();
+  const { register: signUp, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
   const onSubmit = (data) => {
     signUp(data.email, data.password)

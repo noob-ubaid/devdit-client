@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import Loader from "../../../shared/LOader";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const MyPost = () => {
   const { user } = useAuth();
@@ -16,26 +17,53 @@ const MyPost = () => {
         setLoading(false);
       });
   }, [user]);
+  const handleDelete = id => {
+     Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_URL}/post/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              Swal.fire("Deleted!", "Your post has been deleted.", "success");
+              const remainingRecipe = posts.filter((r) => r._id !== id);
+              setPosts(remainingRecipe);
+            }
+          });
+      }
+    });
+  }
   if (loading) return <Loader />;
   if (!posts || posts.length === 0) {
-  return (
-     <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
-      <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">
-        You haven’t added any posts yet
-      </h4>
-      <p className="mt-4 font-second max-w-2xl text-center mx-auto text-[#141414B3]">
- Start building your presence by adding your first post, sharing your ideas with others, and growing your knowledge within the community.      </p>
-      <div className="mt-10">
-        <Link
-          to="/dashboard/addPost"
-          className="bg-main mt-6 text-white font-second font-medium px-8 py-3 rounded-full"
-        >
-          Add Post
-        </Link>
+    return (
+      <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
+        <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">
+          You haven’t added any posts yet
+        </h4>
+        <p className="mt-4 font-second max-w-2xl text-center mx-auto text-[#141414B3]">
+          Start building your presence by adding your first post, sharing your
+          ideas with others, and growing your knowledge within the community.{" "}
+        </p>
+        <div className="mt-10">
+          <Link
+            to="/dashboard/addPost"
+            className="bg-main mt-6 text-white font-second font-medium px-8 py-3 rounded-full"
+          >
+            Add Post
+          </Link>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
   return (
     <div>
       <h2 className="text-center font-medium font-main text-2xl md:text-3xl lg:text-4xl mt-3">
@@ -70,9 +98,9 @@ const MyPost = () => {
                   </p>
                 </td>
                 <td className="text-center">
-                  <p className="md:px-3 px-2 font-second py-1 mx-auto border-red-600 border w-fit rounded-full cursor-pointer hover:text-white  md:font-medium hover:bg-red-600 duration-300">
+                  <button onClick={()=> handleDelete(post._id)} className="md:px-3 px-2 font-second py-1 mx-auto border-red-600 border w-fit rounded-full cursor-pointer hover:text-white  md:font-medium hover:bg-red-600 duration-300">
                     Delete Post
-                  </p>
+                  </button>
                 </td>
               </tr>
             ))}

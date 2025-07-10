@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
-import { FaHome, FaUser } from "react-icons/fa";
+import {  FaUser } from "react-icons/fa";
 import { MdAddCircleOutline, MdOutlineArticle } from "react-icons/md";
-import { IoHome } from "react-icons/io5";
+import { MdManageAccounts } from "react-icons/md";
 import Logo from "../shared/Logo";
 const DashboardLayout = () => {
   return (
@@ -88,6 +88,28 @@ const DashboardLayout = () => {
               >
                 <MdOutlineArticle className="inline-block" />
                 My Posts
+              </NavLink>
+              <NavLink
+                to="/dashboard/adminProfile"
+                className={({ isActive }) =>
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                    isActive ? "bg-base-200 text-main" : "text-white"
+                  }`
+                }
+              >
+                <FaUser className="inline-block" />
+                Admin Profile
+              </NavLink>
+              <NavLink
+                to="/dashboard/manageUsers"
+                className={({ isActive }) =>
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                    isActive ? "bg-base-200 text-main" : "text-white"
+                  }`
+                }
+              >
+                <MdManageAccounts className="inline-block" />
+                Manage Users
               </NavLink>
             </li>
           </ul>

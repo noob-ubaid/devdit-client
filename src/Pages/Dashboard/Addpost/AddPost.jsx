@@ -102,18 +102,18 @@ const AddPost = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col mt-6 md:gap-6 gap-4 md:mt-10 w-full">
           <input
-            className=" px-6 py-3 rounded dark:bg-gray-700 dark:text-white bg-gray-200 outline-none"
+            className=" px-6 py-3 rounded bg-gray-200 outline-none"
             type="text"
             name="title"
             placeholder="Enter your post title"
             required
           />
-          <div className="flex items-center md:gap-8 gap-4 dark:bg-gray-700 rounded dark:text-white flex-col md:flex-row w-full">
+          <div className="flex items-center md:gap-8 gap-4  rounded flex-col md:flex-row w-full">
             <select
               value={tag}
               onChange={handleTag}
               required
-              className=" px-6 py-3 rounded w-full dark:bg-gray-700 dark:text-white bg-gray-200 outline-none"
+              className=" px-6 py-3 rounded w-full  bg-gray-200 outline-none"
             >
               {tags.map((tag, index) => (
                 <option key={index} value={tag}>
@@ -129,7 +129,7 @@ const AddPost = () => {
             required
             onChange={handleDescription}
             placeholder="Description"
-            className=" px-6  py-3 rounded dark:bg-gray-700 dark:text-white bg-gray-200 outline-none"
+            className=" px-6  py-3 rounded bg-gray-200 outline-none"
           ></textarea>
 
           <button

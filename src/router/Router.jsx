@@ -9,6 +9,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MyProfile from "../Pages/Dashboard/Myprofile/MyProfile";
 import AddPost from "../Pages/Dashboard/Addpost/AddPost";
 import MyPost from "../Pages/Dashboard/MyPost/MyPost";
+import AdminProfile from "../Pages/Admin/AdminProfile/AdminProfile";
+import ManageUsers from "../Pages/Admin/ManageUsers/ManageUsers";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +53,14 @@ export const router = createBrowserRouter([
       {
         path : "myPost",
         Component  : MyPost
+      },
+      {
+        path : "adminProfile",
+        Component  : AdminProfile
+      },
+      {
+        path : "manageUsers",
+        Component  : ManageUsers
       },
     ]
   },
