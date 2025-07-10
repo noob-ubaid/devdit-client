@@ -31,15 +31,15 @@ const MyProfile = () => {
       <div className="flex items-center flex-col md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-2 md:p-6 rounded-md">
         <div className="flex items-center gap-2 md:gap-4">
           <img
-            className="size-12 md:size-16 rounded-full"
+            className="size-14 md:size-16 rounded-full"
             src={user?.photoURL}
             alt=""
           />
           <div>
-            <p className="md:text-xl text-lg font-main md:font-bold font-semibold ">
+            <p className="text-xl font-main md:font-bold font-semibold ">
               {user?.displayName}
             </p>
-            <p className="md:text-lg text-base font-main font-medium md:font-semibold">
+            <p className="text-lg font-main font-medium md:font-semibold">
               {user?.email}
             </p>
           </div>
@@ -51,7 +51,7 @@ const MyProfile = () => {
         </div>
       </div>
       <div>
-        <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium font-second mt-10 md:mt-14">
+        <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium font-main mt-10 md:mt-14">
           My Recent posts
         </h2>
 
@@ -60,7 +60,7 @@ const MyProfile = () => {
             You haven't added any posts yet.
           </p>
         ) : (
-          <div className="grid grid-cols-1 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {posts.map((post) => (
               <PostCard key={post._id} post={post} />
             ))}

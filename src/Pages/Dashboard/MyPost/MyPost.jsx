@@ -38,7 +38,7 @@ const MyPost = () => {
 }
   return (
     <div>
-      <h2 className="text-center font-medium text-2xl md:text-3xl mt-3">
+      <h2 className="text-center font-medium font-main text-2xl md:text-3xl mt-3">
         My Posts
       </h2>
       <div className="overflow-x-auto mt-6">
@@ -48,7 +48,8 @@ const MyPost = () => {
             <tr>
               <th className="text-center font-second">#</th>
               <th className="text-center font-second">Post Title</th>
-              <th className="text-center font-second">Votes</th>
+              <th className="text-center font-second">Up Votes</th>
+              <th className="text-center font-second">Down Votes</th>
               <th className="text-center font-second">Comments</th>
               <th className="text-center font-second">Delete Post</th>
             </tr>
@@ -61,7 +62,8 @@ const MyPost = () => {
                 <td className="max-w-[200px] font-second font-medium text-center truncate">
                   {post.title}
                 </td>
-                <td className="text-center font-second">{post.UpVote + post.DownVote}</td>
+                <td className="text-center font-second">{post.UpVote}</td>
+                <td className="text-center font-second">{post.DownVote}</td>
                 <td className="text-center">
                   <p className="md:px-3 px-2 font-second py-1 border-main mx-auto border w-fit rounded-full cursor-pointer hover:text-white  md:font-medium hover:bg-main duration-300">
                     View Comments
