@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-import Loader from "../../../shared/LOader";
+import Loader from "../../../shared/Loader";
 import PostCard from "./PostCard";
 import { Link } from "react-router";
 const MyProfile = () => {

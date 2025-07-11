@@ -10,7 +10,7 @@ const PostCard = ({ post }) => {
         <div className="flex items-center gap-2 md:gap-3">
          <p className="md:text-xl text-lg font-main md:font-bold font-semibold">{date}</p>
         </div>
-        <p className="bg-main px-3 py-1 rounded-full text-white font-main font-semibold ">
+        <p className="bg-blue-200 px-3 py-1 rounded-full text-blue-800 font-main font-semibold ">
           {tag}
         </p>
       </div>

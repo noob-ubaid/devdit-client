@@ -106,8 +106,8 @@ const ManageUsers = () => {
                       Free
                     </span>
                   )}
-                  {user.role === "paid" && (
-                    <span className="font-medium px-3 py-1 rounded-full font-main bg-[#0e40f4] text-white">
+                  {user.role === "premium" && (
+                    <span className="font-medium px-3 py-1 rounded-full font-main bg-yellow-200 text-yellow-700">
                       Premium
                     </span>
                   )}
