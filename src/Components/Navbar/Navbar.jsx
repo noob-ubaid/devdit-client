@@ -41,7 +41,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="sticky top-0 bg-main/20 backdrop-blur-2xl z-50 py-4 px-3 md:px-4 overflow-visible">
+    <div className="sticky top-0 bg-blue-400/90 z-50 py-4 px-3 md:px-4 overflow-visible">
       <div className="max-w-[1500px] flex items-center justify-between mx-auto relative">
         <div className="flex items-center">
           <div className="dropdown">
