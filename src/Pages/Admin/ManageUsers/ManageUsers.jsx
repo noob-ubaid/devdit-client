@@ -1,21 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { FaUserShield } from "react-icons/fa";
+import Loader from "../../../shared/Loader";
 import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [reFetch, setReFetch] = useState(false);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/users?search=${search}`)
       .then((res) => res.json())
       .then((data) => {
         setUsers(data);
+        setLoading(false);
       });
-  }, [search]);
+  }, [search, reFetch]);
+  if (loading) return <Loader />;
+  const handleCancelAdmin = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Make Admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_URL}/cancelAdmin/${id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount) {
+              Swal.fire("Success!", "User has been made user.", "success");
+              setReFetch(!reFetch)
+            }
+          });
+      }
+    });
+  };
   const handleMakeAdmin = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      // text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -29,7 +56,8 @@ const ManageUsers = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount) {
-              Swal.fire("Deleted!", "Your post has been deleted.", "success");
+              Swal.fire("Success!", "User has been made admin.", "success");
+              setReFetch(!reFetch)
             }
           });
       }
@@ -73,19 +101,33 @@ const ManageUsers = () => {
                   {user.email}
                 </td>
                 <td>
-                  {user.role === "user" ? (
-                    <span className="font-medium px-3 py-1 rounded-full font-main bg-blue-100 text-blue-800">
+                  {user.role === "user" && (
+                    <span className="font-medium px-3 py-1 rounded-full font-main bg-blue-200 text-blue-800">
                       Free
                     </span>
-                  ) : (
-                    <span className="font-medium font-main px-3 py-1 rounded-full text-white bg-main">
+                  )}
+                  {user.role === "paid" && (
+                    <span className="font-medium px-3 py-1 rounded-full font-main bg-[#0e40f4] text-white">
                       Premium
+                    </span>
+                  )}
+                  {user.role === "admin" && (
+                    <span className="font-medium px-3 py-1 rounded-full font-main bg-green-200 text-green-800">
+                      Admin
                     </span>
                   )}
                 </td>
                 <td>
                   {user.role === "admin" ? (
-                    <span className="badge badge-info">Admin</span>
+                    <button
+                      onClick={() => handleCancelAdmin(user._id)}
+                      className="bg-red-500 cursor-pointer px-3 py-1 font-medium font-main rounded-full mx-auto text-white flex items-center gap-2"
+                    >
+                      <span className="hidden md:block">
+                        <FaUserShield />
+                      </span>{" "}
+                      Cancel Admin
+                    </button>
                   ) : (
                     <button
                       onClick={() => handleMakeAdmin(user._id)}
