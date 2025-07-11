@@ -24,6 +24,7 @@ const AddPost = () => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [reFetch,setReFetch] = useState(false)
   useEffect(() => {
     setLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}/posts/${user?.email}`)
@@ -31,8 +32,9 @@ const AddPost = () => {
       .then((data) => {
         setPosts(data);
         setLoading(false);
+        setReFetch(true)
       });
-  }, [user]);
+  }, [user,reFetch]);
   if (loading) return <Loader />;
   const handleTag = (e) => {
     setTag(e.target.value);
@@ -70,9 +72,10 @@ const AddPost = () => {
       .then((res) => res.json())
       .then((data) => {
         toast.success("Successfully added food items");
+        setReFetch(!reFetch)
       });
   };
-  if (posts.length === 5)
+  if (posts.length > 4)
     return (
       <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 text-center px-4 mt-6 rounded-md">
         <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">

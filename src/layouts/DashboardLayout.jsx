@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from "react-router";
 import {  FaUser } from "react-icons/fa";
 import { MdAddCircleOutline, MdOutlineArticle } from "react-icons/md";
 import { MdManageAccounts } from "react-icons/md";
+import { GrAnnounce } from "react-icons/gr";
 import Logo from "../shared/Logo";
 const DashboardLayout = () => {
   return (
@@ -110,6 +111,17 @@ const DashboardLayout = () => {
               >
                 <MdManageAccounts className="inline-block" />
                 Manage Users
+              </NavLink>
+              <NavLink
+                to="/dashboard/announcement"
+                className={({ isActive }) =>
+                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                    isActive ? "bg-base-200 text-main" : "text-white"
+                  }`
+                }
+              >
+                <GrAnnounce className="inline-block" />
+                Make Announcement
               </NavLink>
             </li>
           </ul>
