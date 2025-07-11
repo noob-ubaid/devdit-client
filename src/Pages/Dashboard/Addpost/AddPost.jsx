@@ -1,30 +1,22 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
-import Loader from "../../../shared/LOader";
+import Loader from "../../../shared/Loader";
 import { Link } from "react-router";
 
 const AddPost = () => {
-  const tags = [
-    "JavaScript",
-    "React",
-    "Node.js",
-    "MongoDB",
-    "Express",
-    "Frontend",
-    "Backend",
-    "Fullstack",
-    "Web Development",
-    "UI/UX",
-    "Firebase",
-    "API Integration",
-  ];
   const { user } = useAuth();
-  const [tag, setTag] = useState("JavaScript");
+  const [tag, setTag] = useState([]);
+  const [selectedTag,setSelectedTag] = useState("JavaScript")
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
-  const [reFetch,setReFetch] = useState(false)
+  const [reFetch, setReFetch] = useState(false);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/tags`)
+      .then((res) => res.json())
+      .then((data) => setTag(data));
+  }, []);
   useEffect(() => {
     setLoading(true);
     fetch(`${import.meta.env.VITE_API_URL}/posts/${user?.email}`)
@@ -32,12 +24,12 @@ const AddPost = () => {
       .then((data) => {
         setPosts(data);
         setLoading(false);
-        setReFetch(true)
+        setReFetch(true);
       });
-  }, [user,reFetch]);
+  }, [user, reFetch]);
   if (loading) return <Loader />;
   const handleTag = (e) => {
-    setTag(e.target.value);
+    setSelectedTag(e.target.value);
   };
   const handleDescription = (e) => {
     setDescription(e.target.value);
@@ -56,7 +48,7 @@ const AddPost = () => {
       image,
       title,
       description,
-      tag,
+      tag:selectedTag,
       date,
       UpVote: 0,
       DownVote: 0,
@@ -71,7 +63,7 @@ const AddPost = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Successfully added food items");
+        toast.success("Post added successfully!");
         setReFetch(!reFetch)
       });
   };
@@ -113,14 +105,14 @@ const AddPost = () => {
           />
           <div className="flex items-center md:gap-8 gap-4  rounded flex-col md:flex-row w-full">
             <select
-              value={tag}
-              onChange={handleTag}
               required
+              onChange={handleTag}
+              value={selectedTag}
               className=" px-6 py-3 rounded w-full  bg-gray-200 outline-none"
             >
-              {tags.map((tag, index) => (
-                <option key={index} value={tag}>
-                  {tag}
+              {tag.map((tags) => (
+                <option key={tags._id} value={tags.tag}>
+                  {tags.tag}
                 </option>
               ))}
             </select>

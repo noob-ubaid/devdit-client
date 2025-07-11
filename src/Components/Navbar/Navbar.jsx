@@ -11,7 +11,6 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const [profile, setProfile] = useState(false);
   const dropdownRef = useRef();
-console.log(user)
   const signOut = () => {
     logOut()
       .then(() => toast.success("Successfully logged out"))

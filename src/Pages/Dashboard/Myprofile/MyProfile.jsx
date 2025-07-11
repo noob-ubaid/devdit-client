@@ -1,44 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import Loader from "../../../shared/Loader";
 import PostCard from "./PostCard";
 import { Link } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+
 const MyProfile = () => {
   const { user } = useAuth();
-  const [role, setRole] = useState(null);
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fetch(`${import.meta.env.VITE_API_URL}/users/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRole(data);
-        setLoading(false);
-      });
-  }, [user]);
-  useEffect(() => {
-    setLoading(true);
-    fetch(`${import.meta.env.VITE_API_URL}/profile/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data);
-        setLoading(false);
-      });
-  }, [user]);
 
-  if (loading) return <Loader />;
+  const { data: role, isLoading: isRoleLoading } = useQuery({
+    queryKey: ["userRole", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${user.email}`);
+      return res.data;
+    },
+  });
+
+  const { data: posts = [], isLoading: isPostsLoading } = useQuery({
+    queryKey: ["userPosts", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/profile/${user.email}`);
+      return res.data;
+    },
+  });
+
+  if (isRoleLoading || isPostsLoading) return <Loader />;
+
   return (
     <div>
+      {/* Profile Section */}
       <div className="flex items-center flex-col md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-2 md:p-6 rounded-md">
         <div className="flex items-center gap-2 md:gap-4">
           <img
             className="size-14 md:size-16 rounded-full"
             src={user?.photoURL}
-            alt=""
+            alt={user?.displayName || "Profile"}
           />
           <div>
-            <p className="text-xl font-main md:font-bold font-semibold ">
+            <p className="text-xl font-main md:font-bold font-semibold">
               {user?.displayName}
             </p>
             <p className="text-lg font-main font-medium md:font-semibold">
@@ -52,6 +54,8 @@ const MyProfile = () => {
           </button>
         </div>
       </div>
+
+      {/* Posts Section */}
       <div>
         {posts.length === 0 ? (
           <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
@@ -61,7 +65,7 @@ const MyProfile = () => {
             <p className="mt-4 font-second max-w-2xl text-center mx-auto text-[#141414B3]">
               Start building your presence by adding your first post, sharing
               your ideas with others, and growing your knowledge within the
-              community.{" "}
+              community.
             </p>
             <div className="mt-10">
               <Link

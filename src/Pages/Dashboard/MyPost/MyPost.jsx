@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAuth from "../../../hooks/useAuth";
-import Loader from "../../../shared/LOader";
+import Loader from "../../../shared/Loader";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
 
 const MyPost = () => {
   const { user } = useAuth();
-  const [posts, setPosts] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fetch(`${import.meta.env.VITE_API_URL}/posts/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data);
-        setLoading(false);
-      });
-  }, [user]);
-  const handleDelete = id => {
-     Swal.fire({
+  const queryClient = useQueryClient();
+
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ["myPosts", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/posts/${user.email}`);
+      return res.data;
+    },
+  });
+
+  const deletePostMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.delete(`/post/${id}`);
+      return res.data;
+    },
+    onSuccess: (_, id) => {
+      Swal.fire("Deleted!", "Your post has been deleted.", "success");
+      queryClient.setQueryData(["myPosts", user?.email], (oldData) =>
+        oldData.filter((post) => post._id !== id)
+      );
+    },
+  });
+
+  const handleDelete = (id) => {
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
@@ -28,21 +43,13 @@ const MyPost = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_URL}/post/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount) {
-              Swal.fire("Deleted!", "Your post has been deleted.", "success");
-              const remainingRecipe = posts.filter((r) => r._id !== id);
-              setPosts(remainingRecipe);
-            }
-          });
+        deletePostMutation.mutate(id);
       }
     });
-  }
-  if (loading) return <Loader />;
+  };
+
+  if (isLoading) return <Loader />;
+
   if (!posts || posts.length === 0) {
     return (
       <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
@@ -51,7 +58,7 @@ const MyPost = () => {
         </h4>
         <p className="mt-4 font-second max-w-2xl text-center mx-auto text-[#141414B3]">
           Start building your presence by adding your first post, sharing your
-          ideas with others, and growing your knowledge within the community.{" "}
+          ideas with others, and growing your knowledge within the community.
         </p>
         <div className="mt-10">
           <Link
@@ -64,6 +71,7 @@ const MyPost = () => {
       </div>
     );
   }
+
   return (
     <div>
       <h2 className="text-center font-medium font-main text-2xl md:text-3xl lg:text-4xl mt-3">
@@ -93,12 +101,15 @@ const MyPost = () => {
                 <td className="text-center font-second">{post.UpVote}</td>
                 <td className="text-center font-second">{post.DownVote}</td>
                 <td className="text-center">
-                  <p className="md:px-3 px-2 font-second py-1 border-main mx-auto border w-fit rounded-full cursor-pointer hover:text-white  md:font-medium hover:bg-main duration-300">
+                  <p className="md:px-3 px-2 font-second py-1 border-main mx-auto border w-fit rounded-full cursor-pointer hover:text-white md:font-medium hover:bg-main duration-300">
                     View Comments
                   </p>
                 </td>
                 <td className="text-center">
-                  <button onClick={()=> handleDelete(post._id)} className="md:px-3 px-2 font-second py-1 mx-auto border-red-600 border w-fit rounded-full cursor-pointer hover:text-white  md:font-medium hover:bg-red-600 duration-300">
+                  <button
+                    onClick={() => handleDelete(post._id)}
+                    className="md:px-3 px-2 font-second py-1 mx-auto border-red-600 border w-fit rounded-full cursor-pointer hover:text-white md:font-medium hover:bg-red-600 duration-300"
+                  >
                     Delete Post
                   </button>
                 </td>

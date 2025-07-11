@@ -1,45 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaUserShield } from "react-icons/fa";
-import Loader from "../../../shared/Loader";
 import Swal from "sweetalert2";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [reFetch, setReFetch] = useState(false);
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/users?search=${search}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-        setLoading(false);
-      });
-  }, [search, reFetch]);
-  if (loading) return <Loader />;
-  const handleCancelAdmin = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Make Admin!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_URL}/cancelAdmin/${id}`, {
-          method: "PATCH",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.modifiedCount) {
-              Swal.fire("Success!", "User has been made user.", "success");
-              setReFetch(!reFetch)
-            }
-          });
-      }
-    });
-  };
+  const queryClient = useQueryClient();
+
+  const { data: users = [] } = useQuery({
+    queryKey: ["users", search],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?search=${search}`);
+      return res.data;
+    },
+  });
+
+  const makeAdminMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.patch(`/makeAdmin/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      Swal.fire("Success!", "User has been made admin.", "success");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  // Mutation for cancelling admin
+  const cancelAdminMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await axiosSecure.patch(`/cancelAdmin/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      Swal.fire("Success!", "Admin rights removed.", "success");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
   const handleMakeAdmin = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -50,21 +49,29 @@ const ManageUsers = () => {
       confirmButtonText: "Make Admin!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`${import.meta.env.VITE_API_URL}/makeAdmin/${id}`, {
-          method: "PATCH",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.modifiedCount) {
-              Swal.fire("Success!", "User has been made admin.", "success");
-              setReFetch(!reFetch)
-            }
-          });
+        makeAdminMutation.mutate(id);
       }
     });
   };
+
+  const handleCancelAdmin = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Remove Admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cancelAdminMutation.mutate(id);
+      }
+    });
+  };
+
+
   return (
-    <div className="">
+    <div>
       <h2 className="text-2xl md:text-3xl font-semibold text-center mb-4">
         Manage Users
       </h2>
@@ -94,10 +101,10 @@ const ManageUsers = () => {
             {users.map((user, idx) => (
               <tr key={user._id} className="text-center">
                 <td>{idx + 1}</td>
-                <td className=" font-medium font-main text-base md:text-lg ">
+                <td className="font-medium font-main text-base md:text-lg">
                   {user.name}
                 </td>
-                <td className=" font-medium font-main text-base md:text-lg">
+                <td className="font-medium font-main text-base md:text-lg">
                   {user.email}
                 </td>
                 <td>
@@ -126,7 +133,7 @@ const ManageUsers = () => {
                       <span className="hidden md:block">
                         <FaUserShield />
                       </span>{" "}
-                      Cancel Admin
+                      Remove Admin
                     </button>
                   ) : (
                     <button

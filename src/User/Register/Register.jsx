@@ -45,7 +45,7 @@ const Register = () => {
   };
 
   return (
-    <div className="my-20">
+    <div className="my-20  px-4 md:px-0">
       <div className="flex items-center justify-center">
         <div className="card-body max-w-md border dark:bg-white border-[#0F0F0F26] rounded-md">
           <h2 className="text-2xl font-semibold mt-4 mb-2 border-b border-b-[#0F0F0F26] pb-4 text-center">
