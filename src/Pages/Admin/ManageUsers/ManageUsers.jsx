@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaUserShield } from "react-icons/fa";
-import Loader from "../../../shared/LOader";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -12,6 +12,29 @@ const ManageUsers = () => {
         setUsers(data);
       });
   }, [search]);
+  const handleMakeAdmin = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Make Admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_API_URL}/makeAdmin/${id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount) {
+              Swal.fire("Deleted!", "Your post has been deleted.", "success");
+            }
+          });
+      }
+    });
+  };
   return (
     <div className="">
       <h2 className="text-2xl md:text-3xl font-semibold text-center mb-4">
@@ -64,8 +87,14 @@ const ManageUsers = () => {
                   {user.role === "admin" ? (
                     <span className="badge badge-info">Admin</span>
                   ) : (
-                    <button className="bg-main px-3 py-1 font-medium font-main rounded-full mx-auto text-white flex items-center gap-2">
-                      <span className="hidden md:block"><FaUserShield /></span> Make Admin
+                    <button
+                      onClick={() => handleMakeAdmin(user._id)}
+                      className="bg-main px-3 py-1 font-medium font-main rounded-full mx-auto text-white flex items-center gap-2"
+                    >
+                      <span className="hidden md:block">
+                        <FaUserShield />
+                      </span>{" "}
+                      Make Admin
                     </button>
                   )}
                 </td>
