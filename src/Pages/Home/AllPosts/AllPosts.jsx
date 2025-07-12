@@ -11,7 +11,6 @@ const AllPosts = () => {
   const [count, setCount] = useState(0);
   const numberOfPages = Math.ceil(count / 5);
   const pages = [...Array(numberOfPages).keys()];
-  console.log(pages)
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/pagination?page=${currentPage}`)
       .then((res) => res.json())
