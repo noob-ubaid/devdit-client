@@ -6,6 +6,9 @@ import { Link, NavLink } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { axiosSecure } from "../../hooks/useAxiosSecure";
+import Loader from "../../shared/Loader";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -16,7 +19,13 @@ const Navbar = () => {
       .then(() => toast.success("Successfully logged out"))
       .catch((error) => console.log(error));
   };
-
+  const { data: announcement = [], isLoading } = useQuery({
+    queryKey: ["navbar-announcement"],
+    queryFn: async () => {
+      const res = await axiosSecure("/announcement");
+      return res.data;
+    },
+  });
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -39,9 +48,9 @@ const Navbar = () => {
       </NavLink>
     </div>
   );
-
+  if (isLoading) return <Loader />;
   return (
-    <div className="sticky top-0 bg-blue-400/90 z-50 py-4 px-3 md:px-4 overflow-visible">
+    <div className="sticky top-0 bg-[#8ecae6] z-50 py-4 px-3 md:px-4 overflow-visible">
       <div className="max-w-[1500px] flex items-center justify-between mx-auto relative">
         <div className="flex items-center">
           <div className="dropdown">
@@ -68,7 +77,7 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <Logo footer={false}/>
+          <Logo footer={false} />
         </div>
 
         <div className="hidden lg:flex flex-col lg:flex-row items-center gap-4 lg:gap-0">
@@ -76,7 +85,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-1 md:gap-3 relative">
-          <IoNotificationsCircleOutline size={52} />
+          <div className="relative">
+            <IoNotificationsCircleOutline size={52} />
+            <p className="absolute right-0 top-0 bg-white py-[1px] text-sm px-[7px] rounded-full ">
+              {announcement.length}
+            </p>
+          </div>
           {user ? (
             <div ref={dropdownRef}>
               <img

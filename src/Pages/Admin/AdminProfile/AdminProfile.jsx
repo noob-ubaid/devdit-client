@@ -69,7 +69,7 @@ const AdminProfile = () => {
       </div>
 
       {/* Pie Chart */}
-      <div className="flex items-center justify-center w-full max-w-[500px] mx-auto mt-10">
+      <div className="flex items-center justify-center w-full max-w-[480px] mx-auto mt-10">
         <ResponsiveContainer width="100%" aspect={1}>
           <PieChart>
             <Pie

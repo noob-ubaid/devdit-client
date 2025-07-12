@@ -21,9 +21,9 @@ const AnnouncementsHome = () => {
         {announcement.map((announce) => (
           <div key={announce._id} className="bg-gray-200 rounded-sm p-4 md:p-6">
             <div className="flex items-center justify-between border-b border-gray-400 pb-4">
-              <div className="flex items-center  gap-1 md:gap-4">
+              <div className="flex items-center  gap-2 md:gap-4">
                 <img
-                  className="rounded-full size-10 md:size-16"
+                  className="rounded-full size-10 md:size-14"
                   src={announce.authorImage}
                   alt={announce.title}
                 />
