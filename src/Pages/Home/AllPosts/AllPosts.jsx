@@ -1,74 +1,84 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Loader from "../../../shared/Loader";
-import { Link } from "react-router";
-import { AiFillDislike, AiFillLike } from "react-icons/ai";
+import Post from "./Post";
 
 const AllPosts = () => {
-  const {
-    data = [],
-    isPending,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["allPosts"],
-    queryFn: async () => {
-      const res = await axiosSecure("/posts");
-      return res.data;
-    },
-  });
-  if (isPending) return <Loader />;
-  if (isError) return <p>Something went wrong : {error.message}</p>;
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(0);
+  const numberOfPages = Math.ceil(count / 5);
+  const pages = [...Array(numberOfPages).keys()];
+  console.log(pages)
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/pagination?page=${currentPage}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      });
+  }, [currentPage]);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/postsCount`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCount(data);
+        setLoading(false);
+      });
+  }, []);
+  const handlePrevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+  if (loading) return <Loader />;
   return (
     <div>
       <h1 className="text-center text-2xl font-main md:text-3xl lg:text-4xl font-semibold mt-8 md:mt-12">
         All Posts
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 my-6 md:my-10 lg:grid-cols-3 gap-6 md:gap-10">
-        {data.map((post) => (
-          <Link to={`/post/${post._id}`} key={post._id}>
-            <div className="rounded bg-gray-100 p-4">
-              <div className="flex items-center border-b border-gray-400 pb-4  justify-between ">
-                <div className="flex items-center gap-2 md:gap-3">
-                  <p className="md:text-xl text-lg font-main md:font-bold font-semibold">
-                    {post.date}
-                  </p>
-                </div>
-                <p className="bg-blue-200 px-3 py-1 rounded-full text-blue-800 font-main font-semibold ">
-                  {post.tag}
-                </p>
-              </div>
-              <div className="border-b border-gray-400 pb-4">
-                <p className="text-xl font-medium font-main my-2 md:text-2xl">
-                  {post.title}
-                </p>
-                <p className="font-second h-[140px] text-gray-700">
-                  {post.description}
-                </p>
-              </div>
-              <div className="flex items-center justify-between mt-3 gap-5">
-                <Link className="flex-1 text-center py-2 px-4 bg-white rounded-full text-black font-medium">
-                  View Comments
-                </Link>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2 text-black">
-                    <AiFillLike size={22} />
-                    <p className="font-medium">{post.UpVote}</p>
-                  </div>
-                  |
-                  <div className="flex items-center gap-2 text-black">
-                    <AiFillDislike size={22} />
-                    <p className="font-medium">{post.DownVote}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
         ))}
+      </div>
+      <div className="flex items-center mb-6 md:mb-10 justify-center">
+        <div className="flex items-center gap-1 md:gap-2">
+          <button
+            disabled={currentPage < 1}
+            onClick={handlePrevPage}
+            className={`bg-gray-300 px-3 py-2 rounded  font-medium font-main ${currentPage < 1 ? "cursor-not-allowed bg-gray-100" : "cursor-pointer"}`}
+          >
+            Prev
+          </button>
+          {pages.map((page) => (
+            <button
+              className={
+                currentPage === page
+                  ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
+                  : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
+              }
+              onClick={() => setCurrentPage(page)}
+              key={page}
+            >
+              {page + 1}
+            </button>
+          ))}
+          <button
+          disabled={pages.length - 1 == currentPage}
+            onClick={handleNextPage}
+            className={`bg-gray-300 px-3  py-2 rounded font-medium font-main ${pages.length - 1 == currentPage ? "cursor-not-allowed bg-gray-100" : "cursor-pointer"}`}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default AllPosts;
+
