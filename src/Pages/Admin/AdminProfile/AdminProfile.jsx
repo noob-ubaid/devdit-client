@@ -25,10 +25,10 @@ const AdminProfile = () => {
     },
   });
 
-  const { data: announcements = [], isLoading: isAnnouncementsLoading } = useQuery({
-    queryKey: ["allAnnouncements"],
+  const { data: allComments = [], isLoading: isAnnouncementsLoading } = useQuery({
+    queryKey: ["allComments"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/announcement");
+      const res = await axiosSecure.get("/allComments");
       return res.data;
     },
   });
@@ -76,7 +76,7 @@ const AdminProfile = () => {
               data={[
                 { name: "Number of users", uv: users.length },
                 { name: "Number of posts", uv: posts.length },
-                { name: "Number of announcements", uv: announcements.length },
+                { name: "Number of comments", uv: allComments.length },
               ]}
               dataKey="uv"
               fill="#3D74B6"

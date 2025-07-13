@@ -44,8 +44,7 @@ const AddPost = () => {
     e.preventDefault();
     const form = e.target;
     const title = form.title.value;
-    const date = new Date().toDateString();
-
+    const date = new Date()
     const newPost = {
       name: user?.displayName,
       email: user?.email,
@@ -57,13 +56,11 @@ const AddPost = () => {
       UpVote: 0,
       DownVote: 0,
     };
-
     addPostMutation.mutate(newPost);
     form.reset();
     setSelectedTag("JavaScript");
     setDescription("");
   };
-
   const handleTag = (e) => setSelectedTag(e.target.value);
   const handleDescription = (e) => setDescription(e.target.value);
 

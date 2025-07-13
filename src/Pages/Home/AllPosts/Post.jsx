@@ -6,7 +6,6 @@ import useComments from "../../../hooks/useComments";
 
 const Post = ({ post }) => {
   const { data: comments = [], isLoading } = useComments(post._id);
-
   return (
     <Link to={`/post/${post._id}`} key={post._id}>
       <div className="rounded bg-gray-100 p-4">

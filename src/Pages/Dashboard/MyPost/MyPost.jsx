@@ -50,7 +50,7 @@ const MyPost = () => {
 
   if (isLoading) return <Loader />;
 
-  if (!posts || posts.length === 0) {
+  if ( posts.length === 0) {
     return (
       <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
         <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">
@@ -101,9 +101,9 @@ const MyPost = () => {
                 <td className="text-center font-second">{post.UpVote}</td>
                 <td className="text-center font-second">{post.DownVote}</td>
                 <td className="text-center">
-                  <p className="md:px-3 px-2 font-second py-1 border-main mx-auto border w-fit rounded-full cursor-pointer hover:text-white md:font-medium hover:bg-main duration-300">
+                  <Link to={`/comments/${post._id}`} className="md:px-3 px-2 font-second py-1 border-main mx-auto border w-fit rounded-full cursor-pointer hover:text-white md:font-medium hover:bg-main duration-300">
                     View Comments
-                  </p>
+                  </Link>
                 </td>
                 <td className="text-center">
                   <button
