@@ -13,6 +13,7 @@ import AdminProfile from "../Pages/Admin/AdminProfile/AdminProfile";
 import ManageUsers from "../Pages/Admin/ManageUsers/ManageUsers";
 import Announcement from "../Pages/Admin/Announcement/Announcement";
 import Details from "../Pages/Home/Details/Details";
+import Comments from "../Pages/Home/Comments/Comments";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/post/:id",
         Component: Details,
+      },
+      {
+        path: "/comments/:id",
+        Component: Comments,
       },
     ],
   },

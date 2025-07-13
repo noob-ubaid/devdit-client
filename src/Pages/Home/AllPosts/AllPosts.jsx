@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Loader from "../../../shared/Loader";
 import Post from "./Post";
 
