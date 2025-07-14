@@ -14,6 +14,7 @@ import ManageUsers from "../Pages/Admin/ManageUsers/ManageUsers";
 import Announcement from "../Pages/Admin/Announcement/Announcement";
 import Details from "../Pages/Home/Details/Details";
 import Comments from "../Pages/Home/Comments/Comments";
+import AdminRoute from "../contexts/AdminRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -67,15 +68,15 @@ export const router = createBrowserRouter([
       },
       {
         path : "adminProfile",
-        Component  : AdminProfile
+        element : <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
       },
       {
         path : "manageUsers",
-        Component  : ManageUsers
+        element : <AdminRoute><ManageUsers></ManageUsers> </AdminRoute>
       },
       {
         path : "announcement",
-        Component  : Announcement
+        element : <AdminRoute><Announcement></Announcement></AdminRoute>
       },
     ]
   },
