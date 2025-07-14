@@ -1,6 +1,6 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { Link, Navigate, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
@@ -109,3 +109,9 @@ const Comments = () => {
 };
 
 export default Comments;
+
+
+
+
+
+

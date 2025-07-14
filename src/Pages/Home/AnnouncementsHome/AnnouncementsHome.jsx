@@ -19,7 +19,7 @@ const AnnouncementsHome = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 my-6 md:my-10  lg:grid-cols-3 gap-6 md:gap-8">
         {announcement.map((announce) => (
-          <div key={announce._id} className="bg-gray-200 rounded-sm p-4 md:p-6">
+          <div key={announce._id} className="bg-gray-100 rounded-sm p-4 md:p-6">
             <div className="flex items-center justify-between border-b border-gray-400 pb-4">
               <div className="flex items-center  gap-2 md:gap-4">
                 <img

@@ -4,9 +4,15 @@ import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import { Link, useParams, useNavigate } from "react-router";
 import Loader from "../../../shared/Loader";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { FaShareSquare } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import {
+  WhatsappShareButton,
+  WhatsappIcon,
+  FacebookShareButton,
+  FacebookIcon,
+} from "react-share";
+import useTimeAgo from "../../../hooks/useTimeAgo";
 
 const Details = () => {
   const { id } = useParams();
@@ -21,14 +27,14 @@ const Details = () => {
       return res.data;
     },
   });
-
+    const time = useTimeAgo(data?.date);
   const likeMutation = useMutation({
     mutationFn: async () => {
       const res = await axiosSecure.patch(`/like/${id}`);
       return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["details", id]); 
+      queryClient.invalidateQueries(["details", id]);
       toast.success("You liked this post!");
     },
     onError: () => {
@@ -36,23 +42,19 @@ const Details = () => {
     },
   });
 
-
   const dislikeMutation = useMutation({
     mutationFn: async () => {
       const res = await axiosSecure.patch(`/dislike/${id}`);
       return res.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["details", id]); 
+      queryClient.invalidateQueries(["details", id]);
       toast.success("You disliked this post!");
     },
     onError: () => {
       toast.error("Failed to dislike. Try again.");
     },
   });
-
-  if (isPending) return <Loader />;
-
 
   const handleVote = (type) => {
     if (!user) {
@@ -67,6 +69,8 @@ const Details = () => {
     }
   };
 
+  const shareUrl = `${window.location.origin}/post/${id}`;
+    if (isPending) return <Loader />;
   return (
     <div className="rounded bg-gray-100 p-4 my-6 md:my-10 max-w-[700px] mx-auto">
       {/* Top Info */}
@@ -85,7 +89,7 @@ const Details = () => {
         </div>
         <div className="flex items-center w-full mt-4 justify-between">
           <p className="text-xl md:text-[22px] lg:text-2xl font-medium font-main">
-            {data.date}
+           {time}
           </p>
           <p className="bg-blue-200 px-3 py-1 rounded-full text-blue-800 font-main font-semibold ">
             {data.tag}
@@ -98,18 +102,18 @@ const Details = () => {
         <p className="text-xl font-medium font-main my-2 md:text-2xl">
           {data.title}
         </p>
-        <p className="font-second h-[140px] text-gray-700">
+        <p className="font-second text-gray-700">
           {data.description}
         </p>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-between mt-3 gap-2 md:gap-5">
+      <div className="flex items-center justify-between mt-3 gap-1 md:gap-5">
         <Link
           to={`/comments/${id}`}
           className="flex-1 text-center md:py-2 md:px-4 px-2 py-1 bg-white rounded-full text-black font-medium"
         >
-          View Comments
+          All Comments
         </Link>
 
         <div className="flex items-center gap-2">
@@ -122,7 +126,6 @@ const Details = () => {
             <span className="font-medium">{data.UpVote}</span>
           </button>
 
-          {/* Divider */}
           <span>|</span>
 
           {/* Dislike */}
@@ -134,23 +137,18 @@ const Details = () => {
             <span className="font-medium">{data.DownVote}</span>
           </button>
 
-          {/* Divider */}
           <span>|</span>
 
           {/* Share */}
-          <button
-            onClick={() => {
-              if (!user) {
-                navigate("/login");
-                toast.error("You must log in to share the post.");
-              } else {
-                toast.success("You shared this post!");
-              }
-            }}
-            className="flex items-center cursor-pointer gap-1 text-black"
-          >
-            <FaShareSquare size={22} />
-          </button>
+          <div className="flex items-center gap-1">
+            <WhatsappShareButton disabled={!user} url={shareUrl} title={data.title}>
+              <WhatsappIcon size={28} round />
+            </WhatsappShareButton>
+
+            <FacebookShareButton disabled={!user} url={shareUrl} quote={data.title}>
+              <FacebookIcon size={28} round />
+            </FacebookShareButton>
+          </div>
         </div>
       </div>
     </div>

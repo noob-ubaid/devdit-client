@@ -3,9 +3,11 @@ import { Link } from "react-router";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import useComments from "../../../hooks/useComments";
+import useTimeAgo from "../../../hooks/useTimeAgo";
 
 const Post = ({ post }) => {
   const { data: comments = [], isLoading } = useComments(post._id);
+  const time = useTimeAgo(post.date)
   return (
     <Link to={`/post/${post._id}`} key={post._id}>
       <div className="rounded bg-gray-100 p-4">
@@ -32,7 +34,7 @@ const Post = ({ post }) => {
         </div>
         <div className="flex items-center justify-between mt-3 gap-5">
           <p className="md:text-lg text-base font-main md:font-semibold font-medium">
-            {post.date}
+            {time}
           </p>
           <div className="flex items-center gap-2">
             <div data-tip="Total Comments" className="flex tooltip items-center gap-2 text-black">

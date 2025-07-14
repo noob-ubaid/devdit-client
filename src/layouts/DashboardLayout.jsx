@@ -1,11 +1,24 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
-import {  FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { MdAddCircleOutline, MdOutlineArticle } from "react-icons/md";
 import { MdManageAccounts } from "react-icons/md";
 import { GrAnnounce } from "react-icons/gr";
 import Logo from "../shared/Logo";
+import { useQuery } from "@tanstack/react-query";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import Loader from "../shared/Loader";
+import useAuth from "../hooks/useAuth";
 const DashboardLayout = () => {
+  const { user } = useAuth();
+  const { data: role = [], isPending } = useQuery({
+    queryKey: ["userRole"],
+    queryFn: async () => {
+      const result = await axiosSecure(`/role/${user?.email}`);
+      return result.data;
+    },
+  });
+  if (isPending) return <Loader />;
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -53,76 +66,83 @@ const DashboardLayout = () => {
               <Logo footer={true} />
             </Link>
             <li className="mt-6 flex flex-col gap-2">
-            
-              <NavLink
-                end
-                to="/dashboard"
-                className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                    isActive ? "bg-base-200 text-main" : "text-white"
-                  }`
-                }
-              >
-                <FaUser className="inline-block" />
-                My Profile
-              </NavLink>
+              {
+                (role === 'user' || role === 'premium') && <>
+                 <NavLink
+                      end
+                      to="/dashboard"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <FaUser className="inline-block" />
+                      My Profile
+                    </NavLink>
 
-              <NavLink
-                to="/dashboard/addPost"
-                className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                    isActive ? "bg-base-200 text-main" : "text-white"
-                  }`
-                }
-              >
-                <MdAddCircleOutline className="inline-block" />
-                Add Post
-              </NavLink>
+                    <NavLink
+                      to="/dashboard/addPost"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <MdAddCircleOutline className="inline-block" />
+                      Add Post
+                    </NavLink>
 
-              <NavLink
-                to="/dashboard/myPost"
-                className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                    isActive ? "bg-base-200 text-main" : "text-white"
-                  }`
-                }
-              >
-                <MdOutlineArticle className="inline-block" />
-                My Posts
-              </NavLink>
-              <NavLink
-                to="/dashboard/adminProfile"
-                className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                    isActive ? "bg-base-200 text-main" : "text-white"
-                  }`
-                }
-              >
-                <FaUser className="inline-block" />
-                Admin Profile
-              </NavLink>
-              <NavLink
-                to="/dashboard/manageUsers"
-                className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                    isActive ? "bg-base-200 text-main" : "text-white"
-                  }`
-                }
-              >
-                <MdManageAccounts className="inline-block" />
-                Manage Users
-              </NavLink>
-              <NavLink
-                to="/dashboard/announcement"
-                className={({ isActive }) =>
-                  `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                    isActive ? "bg-base-200 text-main" : "text-white"
-                  }`
-                }
-              >
-                <GrAnnounce className="inline-block" />
-                Make Announcement
-              </NavLink>
+                    <NavLink
+                      to="/dashboard/myPost"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <MdOutlineArticle className="inline-block" />
+                      My Posts
+                    </NavLink>
+                </>
+              }
+              {role === "admin" && (
+                <>
+                  <NavLink
+                    to="/dashboard/adminProfile"
+                    className={({ isActive }) =>
+                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                        isActive ? "bg-base-200 text-main" : "text-white"
+                      }`
+                    }
+                  >
+                    <FaUser className="inline-block" />
+                    Admin Profile
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/manageUsers"
+                    className={({ isActive }) =>
+                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                        isActive ? "bg-base-200 text-main" : "text-white"
+                      }`
+                    }
+                  >
+                    <MdManageAccounts className="inline-block" />
+                    Manage Users
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/announcement"
+                    className={({ isActive }) =>
+                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                        isActive ? "bg-base-200 text-main" : "text-white"
+                      }`
+                    }
+                  >
+                    <GrAnnounce className="inline-block" />
+                    Make Announcement
+                  </NavLink>
+                </>
+              )}
             </li>
           </ul>
         </div>

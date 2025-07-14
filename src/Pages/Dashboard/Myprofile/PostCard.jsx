@@ -19,7 +19,7 @@ const PostCard = ({ post }) => {
         <p className="font-second h-[140px] text-gray-700">{description}</p>
       </div>
       <div className="flex items-center justify-between mt-3 gap-5">
-      <Link className="flex-1 text-center py-2 px-4 bg-white rounded-full text-black font-medium">View Comments</Link>
+      <Link to={`/comments/${_id}`} className="flex-1 text-center py-2 px-4 bg-white rounded-full text-black font-medium">View Comments</Link>
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-2 text-black">
           <AiFillLike size={22}/>
