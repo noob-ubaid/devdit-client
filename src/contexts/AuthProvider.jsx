@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../Firebase/Firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
@@ -34,6 +35,15 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+        if (currentUser?.email) {
+        const userData = { email: currentUser?.email };
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, userData, {
+            withCredentials: true,
+          })
+          .then((res) => console.log(res.data))
+          .catch((error) => console.log(error));
+      }
     });
     return () => {
       unSubscribe();
