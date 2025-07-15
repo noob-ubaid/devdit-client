@@ -102,7 +102,7 @@ const MyPost = () => {
                 <td className="text-center font-second">{post.DownVote}</td>
                 <td className="text-center">
                   <Link to={`/comments/${post._id}`} className="md:px-3 px-2 font-second py-1 border-main mx-auto border w-fit rounded-full cursor-pointer hover:text-white md:font-medium hover:bg-main duration-300">
-                    View Comments
+                     Comments
                   </Link>
                 </td>
                 <td className="text-center">
@@ -110,7 +110,7 @@ const MyPost = () => {
                     onClick={() => handleDelete(post._id)}
                     className="md:px-3 px-2 font-second py-1 mx-auto border-red-600 border w-fit rounded-full cursor-pointer hover:text-white md:font-medium hover:bg-red-600 duration-300"
                   >
-                    Delete Post
+                    Delete 
                   </button>
                 </td>
               </tr>
