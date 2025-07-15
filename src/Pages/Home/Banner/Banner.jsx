@@ -1,6 +1,7 @@
-import React from "react";
-
-const Banner = () => {
+const Banner = ({ setSearch }) => {
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
   return (
     <div
       className="w-full md:h-[650px] flex items-center justify-center h-[550px] rounded-md mt-8 md:mt-10 bg-no-repeat bg-cover bg-left "
@@ -20,6 +21,7 @@ const Banner = () => {
         <div className="px-5 md:px-0">
           <input
             type="text"
+            onChange={handleSearch}
             className="w-full mt-3 focus:outline-none focus:ring focus:ring-blue-500 px-4 rounded text-black font-second py-3 bg-white "
             placeholder="Search by tag"
           />

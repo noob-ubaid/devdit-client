@@ -1,23 +1,24 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { FaUser } from "react-icons/fa";
-import { MdAddCircleOutline, MdOutlineArticle } from "react-icons/md";
-import { MdManageAccounts } from "react-icons/md";
+import { MdAddCircleOutline, MdOutlineArticle, MdManageAccounts } from "react-icons/md";
 import { GrAnnounce } from "react-icons/gr";
 import Logo from "../shared/Logo";
 import Loader from "../shared/Loader";
 import useRole from "../hooks/useRole";
+
 const DashboardLayout = () => {
   const [role, isPending] = useRole();
   if (isPending) return <Loader />;
+
   return (
     <div>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
-          {/* Navbar */}
+          {/* Navbar for mobile */}
           <div className="navbar bg-base-300 w-full lg:hidden">
-            <div className="flex-none ">
+            <div className="flex-none">
               <label
                 htmlFor="my-drawer-2"
                 aria-label="open sidebar"
@@ -39,29 +40,31 @@ const DashboardLayout = () => {
               </label>
             </div>
           </div>
-          {/* Page content here */}
+
+          {/* Page content */}
           <div className="md:p-8 p-4">
-            <Outlet></Outlet>
+            <Outlet />
           </div>
-          {/* Page content here */}
         </div>
+
+        {/* Sidebar */}
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-main  min-h-full w-80 p-4">
-            {/* Sidebar content here */},
+
+          <ul className="menu bg-main min-h-full w-80 p-4 pt-10">
             <Link to="/">
               <Logo footer={true} />
             </Link>
+
             <li className="mt-6 flex flex-col gap-2">
               {(role === "user" || role === "premium") && (
                 <>
                   <NavLink
-                    end
-                    to="/dashboard"
+                    to="/dashboard/myProfile" // ✅ Updated path for highlight
                     className={({ isActive }) =>
                       `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
                         isActive ? "bg-base-200 text-main" : "text-white"
@@ -97,6 +100,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </>
               )}
+
               {role === "admin" && (
                 <>
                   <NavLink
@@ -110,6 +114,7 @@ const DashboardLayout = () => {
                     <FaUser className="inline-block" />
                     Admin Profile
                   </NavLink>
+
                   <NavLink
                     to="/dashboard/manageUsers"
                     className={({ isActive }) =>
@@ -121,6 +126,7 @@ const DashboardLayout = () => {
                     <MdManageAccounts className="inline-block" />
                     Manage Users
                   </NavLink>
+
                   <NavLink
                     to="/dashboard/announcement"
                     className={({ isActive }) =>

@@ -15,6 +15,7 @@ import Announcement from "../Pages/Admin/Announcement/Announcement";
 import Details from "../Pages/Home/Details/Details";
 import Comments from "../Pages/Home/Comments/Comments";
 import AdminRoute from "../contexts/AdminRoute";
+import useDashboardHomeRedirect from "../hooks/useDashboardRedirect";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -53,32 +54,47 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
-    children : [
+    children: [
       {
-        index : true,
-        Component  : MyProfile
+        index: true,
+        Component: useDashboardHomeRedirect,
       },
       {
-        path : "addPost",
-        Component  : AddPost,
+        path: "myProfile",
+        Component: MyProfile,
       },
       {
-        path : "myPost",
-        Component  : MyPost
+        path: "addPost",
+        Component: AddPost,
       },
       {
-        path : "adminProfile",
-        element : <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+        path: "myPost",
+        Component: MyPost,
       },
       {
-        path : "manageUsers",
-        element : <AdminRoute><ManageUsers></ManageUsers> </AdminRoute>
+        path: "adminProfile",
+        element: (
+          <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
+        ),
       },
       {
-        path : "announcement",
-        element : <AdminRoute><Announcement></Announcement></AdminRoute>
+        path: "manageUsers",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>{" "}
+          </AdminRoute>
+        ),
       },
-    ]
+      {
+        path: "announcement",
+        element: (
+          <AdminRoute>
+            <Announcement></Announcement>
+          </AdminRoute>
+        ),
+      },
+    ],
   },
-  
 ]);

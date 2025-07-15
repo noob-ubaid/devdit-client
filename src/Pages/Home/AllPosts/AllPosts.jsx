@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../../../shared/Loader";
 import Post from "./Post";
-
-const AllPosts = () => {
+const AllPosts = ({ search }) => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -11,13 +10,13 @@ const AllPosts = () => {
   const pages = [...Array(numberOfPages).keys()];
   useEffect(() => {
     setLoading(true)
-    fetch(`${import.meta.env.VITE_API_URL}/pagination?page=${currentPage}`)
+    fetch(`${import.meta.env.VITE_API_URL}/getPosts?page=${currentPage}&search=${search}`)
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
         setLoading(false);
       });
-  }, [currentPage]);
+  }, [currentPage,search]);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/postsCount`)
       .then((res) => res.json())
@@ -32,7 +31,7 @@ const AllPosts = () => {
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-  if (loading) return <Loader />;
+  if ( loading) return <Loader />;
   return (
     <div>
       <h1 className="text-center text-2xl font-main md:text-3xl lg:text-4xl font-semibold mt-8 md:mt-12">
@@ -48,7 +47,11 @@ const AllPosts = () => {
           <button
             disabled={currentPage < 1}
             onClick={handlePrevPage}
-            className={`bg-gray-300 px-3 py-2 rounded  font-medium font-main ${currentPage < 1 ? "cursor-not-allowed bg-gray-100" : "cursor-pointer"}`}
+            className={`bg-gray-300 px-3 py-2 rounded  font-medium font-main ${
+              currentPage < 1
+                ? "cursor-not-allowed bg-gray-100"
+                : "cursor-pointer"
+            }`}
           >
             Prev
           </button>
@@ -66,9 +69,13 @@ const AllPosts = () => {
             </button>
           ))}
           <button
-          disabled={pages.length - 1 == currentPage}
+            disabled={pages.length - 1 == currentPage}
             onClick={handleNextPage}
-            className={`bg-gray-300 px-3  py-2 rounded font-medium font-main ${pages.length - 1 == currentPage ? "cursor-not-allowed bg-gray-100" : "cursor-pointer"}`}
+            className={`bg-gray-300 px-3  py-2 rounded font-medium font-main ${
+              pages.length - 1 == currentPage
+                ? "cursor-not-allowed bg-gray-100"
+                : "cursor-pointer"
+            }`}
           >
             Next
           </button>
@@ -79,4 +86,3 @@ const AllPosts = () => {
 };
 
 export default AllPosts;
-
