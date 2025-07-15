@@ -16,6 +16,7 @@ import Details from "../Pages/Home/Details/Details";
 import Comments from "../Pages/Home/Comments/Comments";
 import AdminRoute from "../contexts/AdminRoute";
 import useDashboardHomeRedirect from "../hooks/useDashboardRedirect";
+import Reports from "../Pages/Admin/Reports/Reports";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -92,6 +93,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <Announcement></Announcement>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "reports",
+        element: (
+          <AdminRoute>
+            <Reports></Reports>
           </AdminRoute>
         ),
       },

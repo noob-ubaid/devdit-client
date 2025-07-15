@@ -1,7 +1,12 @@
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { FaUser } from "react-icons/fa";
-import { MdAddCircleOutline, MdOutlineArticle, MdManageAccounts } from "react-icons/md";
+import {
+  MdAddCircleOutline,
+  MdOutlineArticle,
+  MdError,
+  MdManageAccounts,
+} from "react-icons/md";
 import { GrAnnounce } from "react-icons/gr";
 import Logo from "../shared/Logo";
 import Loader from "../shared/Loader";
@@ -125,6 +130,17 @@ const DashboardLayout = () => {
                   >
                     <MdManageAccounts className="inline-block" />
                     Manage Users
+                  </NavLink>
+                  <NavLink
+                    to="/dashboard/reports"
+                    className={({ isActive }) =>
+                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                        isActive ? "bg-base-200 text-main" : "text-white"
+                      }`
+                    }
+                  >
+                    <MdError className="inline-block" />
+                    Reported Activities
                   </NavLink>
 
                   <NavLink
