@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loader from "../../../shared/Loader";
 import Post from "./Post";
+import NoPosts from "./NoPosts";
 const AllPosts = ({ search }) => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -9,29 +10,28 @@ const AllPosts = ({ search }) => {
   const numberOfPages = Math.ceil(count / 5);
   const pages = [...Array(numberOfPages).keys()];
   useEffect(() => {
-    setLoading(true)
-    fetch(`${import.meta.env.VITE_API_URL}/getPosts?page=${currentPage}&search=${search}`)
+    setLoading(true);
+    fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/getPosts?page=${currentPage}&search=${search}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        setPosts(data);
+        setPosts(data.posts);
+        console.log(data);
+        setCount(data.count);
         setLoading(false);
       });
-  }, [currentPage,search]);
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/postsCount`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCount(data);
-        setLoading(false);
-      });
-  }, []);
+  }, [currentPage, search]);
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
   };
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-  if ( loading) return <Loader />;
+  if (loading) return <Loader />;
+  if (posts.length === 0) return <NoPosts search={search}/>;
   return (
     <div>
       <h1 className="text-center text-2xl font-main md:text-3xl lg:text-4xl font-semibold mt-8 md:mt-12">
