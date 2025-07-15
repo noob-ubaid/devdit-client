@@ -8,7 +8,7 @@ const Home = () => {
     const [search,setSearch] = useState("")
     return (
         <div>
-            <Banner setSearch={setSearch}/>
+            <Banner search={search} setSearch={setSearch}/>
             <Tags/>
             <AnnouncementsHome/>
             <AllPosts search={search}/>

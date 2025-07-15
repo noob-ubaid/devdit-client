@@ -1,4 +1,17 @@
-const Banner = ({ setSearch }) => {
+import { useQuery } from "@tanstack/react-query";
+import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import Loader from "../../../shared/Loader";
+
+const Banner = ({ setSearch ,search}) => {
+  const { data: tags = [], isPending } = useQuery({
+    queryKey: ["bannerTags"],
+    queryFn: async () => {
+      const res = await axiosSecure("/bannerTags");
+      return res.data;
+    },
+  });
+  console.log(tags);
+  if (isPending) return <Loader />;
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -22,9 +35,26 @@ const Banner = ({ setSearch }) => {
           <input
             type="text"
             onChange={handleSearch}
+            value={search}
             className="w-full mt-3 focus:outline-none focus:ring focus:ring-blue-500 px-4 rounded text-black font-second py-3 bg-white "
             placeholder="Search by tag"
           />
+          <div className="flex items-center mt-3 justify-center">
+            <p className="text-center font-main font-medium text-white">
+              Popular topics :
+              <p className="ml-2 inline-block">
+                {tags.map((tag, index) => (
+                  <span
+                    onClick={() => setSearch(tag.tag)}
+                    key={tag._id}
+                    className="cursor-pointer ml-3"
+                  >
+                    {tag.tag},
+                  </span>
+                ))}
+              </p>
+            </p>
+          </div>
         </div>
       </div>
     </div>
