@@ -2,11 +2,16 @@ import React, { Fragment, useState } from "react";
 import { Dialog, DialogPanel, Transition, Button } from "@headlessui/react";
 import toast from "react-hot-toast";
 import useAuth from "../../../hooks/useAuth";
+import { Navigate, useNavigate } from "react-router";
 
 const ReportModal = ({ isOpen, close, commentId }) => {
   const { user } = useAuth();
   const [report, setReport] = useState(null);
   const feedbackOptions = ["Inappropriate language", "Child abuse", "Spam"];
+  const navigate = useNavigate()
+  const handleLogin = () => {
+    navigate('/login')
+  }
 
   const handleReport = async () => {
     try {
@@ -15,6 +20,7 @@ const ReportModal = ({ isOpen, close, commentId }) => {
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({ feedback: report, userEmail: user.email }),
         }
       );
@@ -80,7 +86,8 @@ const ReportModal = ({ isOpen, close, commentId }) => {
                 </select>
 
                 <div className="mt-6">
-                  <Button
+                 {
+                  user ?  <Button
                     className={`w-full font-semibold rounded-md px-4 py-2 text-white ${
                       !report
                         ? "bg-gray-300 cursor-not-allowed"
@@ -90,7 +97,14 @@ const ReportModal = ({ isOpen, close, commentId }) => {
                     disabled={!report}
                   >
                     Report
-                  </Button>
+                  </Button> :  <button
+                    className={`w-full font-semibold rounded-md font-main px-4 py-2 text-white bg-main cursor-pointer`}
+                    onClick={handleLogin}
+                 
+                  >
+                    Login to report the comment
+                  </button>
+                 }
                 </div>
               </DialogPanel>
             </Transition.Child>

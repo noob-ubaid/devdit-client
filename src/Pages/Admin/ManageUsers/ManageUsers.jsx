@@ -3,19 +3,20 @@ import { FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
-
 const ManageUsers = () => {
   const [search, setSearch] = useState("");
   const queryClient = useQueryClient();
-
-  const { data: users = [] } = useQuery({
-    queryKey: ["users", search],
+  const [currentPage, setCurrentPage] = useState(0);
+  const { data: users = { users: [], count: 0 }}  = useQuery({
+    queryKey: ["users", search, currentPage],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/users?search=${search}`);
+      const res = await axiosSecure.get(
+        `/users?search=${search}&page=${currentPage}`
+      );
       return res.data;
     },
+    keepPreviousData: true,
   });
-
   const makeAdminMutation = useMutation({
     mutationFn: async (id) => {
       const res = await axiosSecure.patch(`/makeAdmin/${id}`);
@@ -68,8 +69,12 @@ const ManageUsers = () => {
       }
     });
   };
-
-
+  const count = users?.count;
+  console.log(count)
+  const numberOfPages = Math.ceil(count / 5);
+  const pages = [...Array(numberOfPages).keys()];
+  const handlePrevPage = () => setCurrentPage((prev) => prev - 1);
+  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   return (
     <div>
       <h2 className="text-2xl md:text-3xl font-semibold text-center mb-4">
@@ -98,7 +103,7 @@ const ManageUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, idx) => (
+            {users?.users?.map((user, idx) => (
               <tr key={user._id} className="text-center">
                 <td>{idx + 1}</td>
                 <td className="font-medium font-main text-base md:text-lg">
@@ -152,8 +157,54 @@ const ManageUsers = () => {
           </tbody>
         </table>
       </div>
+      <div className="flex mt-6 md:mt-10 items-center justify-center ">
+          <div>
+            {numberOfPages > 1 && (
+              <div className="flex items-center mb-6 md:mb-10 justify-center">
+                <div className="flex items-center gap-1 md:gap-2">
+                  <button
+                    disabled={currentPage < 1}
+                    onClick={handlePrevPage}
+                    className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                      currentPage < 1
+                        ? "cursor-not-allowed bg-gray-100"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    Prev
+                  </button>
+                  {pages.map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={
+                        currentPage === page
+                          ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
+                          : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
+                      }
+                    >
+                      {page + 1}
+                    </button>
+                  ))}
+                  <button
+                    disabled={currentPage === pages.length - 1}
+                    onClick={handleNextPage}
+                    className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                      currentPage === pages.length - 1
+                        ? "cursor-not-allowed bg-gray-100"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
     </div>
   );
 };
 
 export default ManageUsers;
+

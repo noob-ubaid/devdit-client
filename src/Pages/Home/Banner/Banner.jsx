@@ -10,7 +10,6 @@ const Banner = ({ setSearch ,search}) => {
       return res.data;
     },
   });
-  console.log(tags);
   if (isPending) return <Loader />;
   const handleSearch = (e) => {
     setSearch(e.target.value);

@@ -14,10 +14,15 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const [profile, setProfile] = useState(false);
   const dropdownRef = useRef();
-  const signOut = () => {
-    logOut()
-      .then(() => toast.success("Successfully logged out"))
-      .catch((error) => console.log(error));
+  const signOut = async () => {
+    try {
+      await axiosSecure.post("/logout");
+      await logOut();
+      toast.success("Successfully logged out");
+    } catch (error) {
+      console.log(error);
+      toast.error("Logout failed");
+    }
   };
   const { data: announcement = [], isLoading } = useQuery({
     queryKey: ["navbar-announcement"],

@@ -13,7 +13,8 @@ const AddTag = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
