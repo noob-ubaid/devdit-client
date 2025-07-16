@@ -7,7 +7,7 @@ import Loader from '../shared/Loader';
 const useRole = () => {
     const {user} = useAuth()
     const { data: role = [], isPending } = useQuery({
-    queryKey: ["userRole"],
+    queryKey: ["userRole",user],
     queryFn: async () => {
       const result = await axiosSecure(`/role/${user?.email}`);
       return result.data;

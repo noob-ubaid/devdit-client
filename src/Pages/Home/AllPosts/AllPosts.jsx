@@ -17,11 +17,14 @@ const AllPosts = ({ search }) => {
       );
       return res.data;
     },
-    keepPreviousData: true, 
+    keepPreviousData: true,
   });
 
   if (isPending) return <Loader />;
-  if (error) return <div className="text-center text-red-500 mt-10">Error loading posts.</div>;
+  if (error)
+    return (
+      <div className="text-center text-red-500 mt-10">Error loading posts.</div>
+    );
 
   const posts = data.posts;
   const count = data.count;

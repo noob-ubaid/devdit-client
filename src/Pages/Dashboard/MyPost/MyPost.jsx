@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import Loader from "../../../shared/Loader";
 import { Link } from "react-router";
@@ -9,16 +9,20 @@ import { axiosSecure } from "../../../hooks/useAxiosSecure";
 const MyPost = () => {
   const { user } = useAuth();
   const queryClient = useQueryClient();
-
-  const { data: posts = [], isLoading } = useQuery({
-    queryKey: ["myPosts", user?.email],
+const [currentPage, setCurrentPage] = useState(0);
+  const { data: posts = {result : [],count : 0}, isLoading } = useQuery({
+    queryKey: ["myPosts", user?.email,currentPage],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(`/posts/${user.email}`);
+      const res = await axiosSecure.get(`/posts/${user.email}?page=${currentPage}`);
       return res.data;
     },
   });
-
+  const count = posts?.count;
+  const numberOfPages = Math.ceil(count / 5);
+  const pages = [...Array(numberOfPages).keys()];
+  const handlePrevPage = () => setCurrentPage((prev) => prev - 1);
+  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   const deletePostMutation = useMutation({
     mutationFn: async (id) => {
       const res = await axiosSecure.delete(`/post/${id}`);
@@ -92,7 +96,7 @@ const MyPost = () => {
           </thead>
           {/* Table Body */}
           <tbody>
-            {posts.map((post, index) => (
+            {posts.result.map((post, index) => (
               <tr key={post._id}>
                 <td className="text-center">{index + 1}</td>
                 <td className="max-w-[200px] font-second font-medium text-center truncate">
@@ -117,6 +121,51 @@ const MyPost = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex mt-6 md:mt-10 items-center justify-center ">
+        <div>
+          {numberOfPages > 1 && (
+            <div className="flex items-center mb-6 md:mb-10 justify-center">
+              <div className="flex items-center gap-1 md:gap-2">
+                <button
+                  disabled={currentPage < 1}
+                  onClick={handlePrevPage}
+                  className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                    currentPage < 1
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }`}
+                >
+                  Prev
+                </button>
+                {pages.map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={
+                      currentPage === page
+                        ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
+                        : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
+                    }
+                  >
+                    {page + 1}
+                  </button>
+                ))}
+                <button
+                  disabled={currentPage === pages.length - 1}
+                  onClick={handleNextPage}
+                  className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                    currentPage === pages.length - 1
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

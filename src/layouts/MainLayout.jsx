@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar/Navbar";
 import { Outlet } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Loader from "../shared/Loader";
+import Footer from "../Components/Footer/Footer";
 
 const MainLayout = () => {
   const { loading } = useAuth();
@@ -13,6 +14,7 @@ const MainLayout = () => {
       <div className="max-w-[1500px] mx-auto px-4 2xl:px-0">
         <Outlet />
       </div>
+      <Footer/>
     </>
   );
 };
