@@ -1,21 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Loader from "../../../shared/Loader";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 const Reports = () => {
+  const [currentPage, setCurrentPage] = useState(0);
   const {
-    data: reports,
+    data: reports = { reports: [], count: 0 },
     isPending,
     refetch,
   } = useQuery({
-    queryKey: ["reports"],
+    queryKey: ["reports", currentPage],
     queryFn: async () => {
-      const res = await axiosSecure(`/reports`);
+      const res = await axiosSecure(`/reports?page=${currentPage}`);
       return res.data;
     },
   });
+  const count = reports?.count;
+  const numberOfPages = Math.ceil(count / 5);
+  const pages = [...Array(numberOfPages).keys()];
+  const handlePrevPage = () => setCurrentPage((prev) => prev - 1);
+  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -61,7 +67,7 @@ const Reports = () => {
             </tr>
           </thead>
           <tbody>
-            {reports.map((report, idx) => (
+            {reports?.reports.map((report, idx) => (
               <tr key={report._id} className="text-center">
                 <td>{idx + 1}</td>
                 <td className="font-medium font-main text-base md:text-lg">
@@ -85,14 +91,63 @@ const Reports = () => {
                   </span>
                 </td>
                 <td className="font-medium  font-main text-base md:text-lg">
-                  {report.status === 'Resolved' ? <span className="text-green-800">Deleted</span> : <button onClick={() => handleDelete(report._id)}>
-                    <MdDelete className="mx-auto cursor-pointer" size={25} />
-                  </button>}
+                  {report.status === "Resolved" ? (
+                    <span className="text-green-800">Deleted</span>
+                  ) : (
+                    <button onClick={() => handleDelete(report._id)}>
+                      <MdDelete className="mx-auto cursor-pointer" size={25} />
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex mt-6 md:mt-10 items-center justify-center ">
+        <div>
+          {numberOfPages > 1 && (
+            <div className="flex items-center mb-6 md:mb-10 justify-center">
+              <div className="flex items-center gap-1 md:gap-2">
+                <button
+                  disabled={currentPage < 1}
+                  onClick={handlePrevPage}
+                  className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                    currentPage < 1
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }`}
+                >
+                  Prev
+                </button>
+                {pages.map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={
+                      currentPage === page
+                        ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
+                        : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
+                    }
+                  >
+                    {page + 1}
+                  </button>
+                ))}
+                <button
+                  disabled={currentPage === pages.length - 1}
+                  onClick={handleNextPage}
+                  className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                    currentPage === pages.length - 1
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

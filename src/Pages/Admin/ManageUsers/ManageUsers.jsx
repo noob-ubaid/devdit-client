@@ -7,7 +7,7 @@ const ManageUsers = () => {
   const [search, setSearch] = useState("");
   const queryClient = useQueryClient();
   const [currentPage, setCurrentPage] = useState(0);
-  const { data: users = { users: [], count: 0 }}  = useQuery({
+  const { data: users = { users: [], count: 0 } } = useQuery({
     queryKey: ["users", search, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -70,7 +70,6 @@ const ManageUsers = () => {
     });
   };
   const count = users?.count;
-  console.log(count)
   const numberOfPages = Math.ceil(count / 5);
   const pages = [...Array(numberOfPages).keys()];
   const handlePrevPage = () => setCurrentPage((prev) => prev - 1);
@@ -158,53 +157,52 @@ const ManageUsers = () => {
         </table>
       </div>
       <div className="flex mt-6 md:mt-10 items-center justify-center ">
-          <div>
-            {numberOfPages > 1 && (
-              <div className="flex items-center mb-6 md:mb-10 justify-center">
-                <div className="flex items-center gap-1 md:gap-2">
+        <div>
+          {numberOfPages > 1 && (
+            <div className="flex items-center mb-6 md:mb-10 justify-center">
+              <div className="flex items-center gap-1 md:gap-2">
+                <button
+                  disabled={currentPage < 1}
+                  onClick={handlePrevPage}
+                  className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                    currentPage < 1
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }`}
+                >
+                  Prev
+                </button>
+                {pages.map((page) => (
                   <button
-                    disabled={currentPage < 1}
-                    onClick={handlePrevPage}
-                    className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
-                      currentPage < 1
-                        ? "cursor-not-allowed bg-gray-100"
-                        : "cursor-pointer"
-                    }`}
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={
+                      currentPage === page
+                        ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
+                        : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
+                    }
                   >
-                    Prev
+                    {page + 1}
                   </button>
-                  {pages.map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={
-                        currentPage === page
-                          ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
-                          : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
-                      }
-                    >
-                      {page + 1}
-                    </button>
-                  ))}
-                  <button
-                    disabled={currentPage === pages.length - 1}
-                    onClick={handleNextPage}
-                    className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
-                      currentPage === pages.length - 1
-                        ? "cursor-not-allowed bg-gray-100"
-                        : "cursor-pointer"
-                    }`}
-                  >
-                    Next
-                  </button>
-                </div>
+                ))}
+                <button
+                  disabled={currentPage === pages.length - 1}
+                  onClick={handleNextPage}
+                  className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+                    currentPage === pages.length - 1
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }`}
+                >
+                  Next
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
+      </div>
     </div>
   );
 };
 
 export default ManageUsers;
-
