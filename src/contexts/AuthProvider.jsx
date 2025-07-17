@@ -15,6 +15,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [success,setSuccess] = useState(null);
   const provider = new GoogleAuthProvider();
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -41,7 +42,7 @@ const AuthProvider = ({ children }) => {
           .post(`${import.meta.env.VITE_API_URL}/jwt`, userData, {
             withCredentials: true,
           })
-          .then((res) => console.log(res.data))
+          .then((res) => setSuccess(res.data))
           .catch((error) => console.log(error));
       }
     });

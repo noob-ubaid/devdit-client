@@ -5,9 +5,11 @@ import Loader from "../../../shared/Loader";
 import { Link } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
+import  useRole  from "../../../hooks/useRole";
 
 const AddPost = () => {
   const { user } = useAuth();
+  const [role,isPending]= useRole()
   const queryClient = useQueryClient();
   const [selectedTag, setSelectedTag] = useState("JavaScript");
   const [description, setDescription] = useState("");
@@ -28,7 +30,7 @@ const AddPost = () => {
       return res.data;
     },
   });
-
+console.log(posts)
   const addPostMutation = useMutation({
     mutationFn: async (newPost) => {
       const res = await axiosSecure.post("/add-post", newPost);
@@ -64,9 +66,9 @@ const AddPost = () => {
   const handleTag = (e) => setSelectedTag(e.target.value);
   const handleDescription = (e) => setDescription(e.target.value);
 
-  if (tagsLoading || postsLoading) return <Loader />;
+  if (tagsLoading || postsLoading || isPending) return <Loader />;
 
-  if (posts.length >= 5) {
+  if (posts.result.length >= 5 && role === "user") {
     return (
       <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 text-center px-4 mt-6 rounded-md">
         <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">

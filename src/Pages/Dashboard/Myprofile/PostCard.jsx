@@ -16,7 +16,7 @@ const PostCard = ({ post }) => {
       </div>
       <div className="border-b border-gray-400 pb-4">
         <p className="text-xl font-medium font-main my-2 md:text-2xl">{title}</p>
-        <p className="font-second h-[140px] text-gray-700">{description}</p>
+        <p className="font-second  text-gray-700">{description}</p>
       </div>
       <div className="flex items-center justify-between mt-3 gap-5">
       <Link to={`/comments/${_id}`} className="flex-1 text-center py-2 px-4 bg-white rounded-full text-black font-medium">View Comments</Link>

@@ -12,7 +12,7 @@ const AdminProfile = () => {
   const { data: users = [], isLoading: isUsersLoading } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get("/allUsers");
       return res.data;
     },
   });
@@ -25,13 +25,14 @@ const AdminProfile = () => {
     },
   });
 
-  const { data: allComments = [], isLoading: isAnnouncementsLoading } = useQuery({
-    queryKey: ["allComments"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/allComments");
-      return res.data;
-    },
-  });
+  const { data: allComments = [], isLoading: isAnnouncementsLoading } =
+    useQuery({
+      queryKey: ["allComments"],
+      queryFn: async () => {
+        const res = await axiosSecure.get("/allComments");
+        return res.data;
+      },
+    });
 
   if (isUsersLoading || isPostsLoading || isAnnouncementsLoading) {
     return <Loader />;

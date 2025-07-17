@@ -66,7 +66,7 @@ const DashboardLayout = () => {
             </Link>
 
             <li className="mt-6 flex flex-col gap-2">
-              {(role === "user" || role === "premium") && (
+              {(role === "user" || role === "member") && (
                 <>
                   <NavLink
                     to="/dashboard/myProfile" // ✅ Updated path for highlight

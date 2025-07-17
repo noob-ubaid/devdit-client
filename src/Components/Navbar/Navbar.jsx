@@ -125,7 +125,7 @@ const Navbar = () => {
                     </Link>
                     <button
                       onClick={signOut}
-                      className="block w-full px-4 py-2 bg-main duration-300 text-center rounded"
+                      className="block w-full px-4 py-2 bg-main font-main duration-300 text-center rounded"
                     >
                       Logout
                     </button>
