@@ -72,7 +72,7 @@ const Details = () => {
   const shareUrl = `${window.location.origin}/post/${id}`;
     if (isPending) return <Loader />;
   return (
-    <div className="rounded bg-gray-100 p-4 my-10 md:my-24 max-w-[700px] mx-auto">
+    <div className="rounded bg-gray-100 dark:bg-gray-800 p-4 my-10 md:my-24 max-w-[700px] mx-auto">
       {/* Top Info */}
       <div className="flex items-center flex-col border-b border-gray-400 pb-4 justify-between">
         <div className="flex items-center justify-center w-full gap-1 sm:gap-2">
@@ -82,13 +82,13 @@ const Details = () => {
               src={data.image}
               alt={data.name}
             />
-            <p className="text-xl md:text-[22px] lg:text-2xl font-medium font-main">
+            <p className="text-xl dark:text-gray-300 md:text-[22px] lg:text-2xl font-medium font-main">
               {data.name}
             </p>
           </div>
         </div>
         <div className="flex items-center w-full mt-4 justify-between">
-          <p className="text-xl md:text-[22px] lg:text-2xl font-medium font-main">
+          <p className="text-xl dark:text-gray-300 md:text-[22px] lg:text-2xl font-medium font-main">
            {time}
           </p>
           <p className="bg-blue-200 px-3 py-1 rounded-full text-blue-800 font-main font-semibold ">
@@ -99,10 +99,10 @@ const Details = () => {
 
       {/* Post Description */}
       <div className="border-b border-gray-400 pb-4">
-        <p className="text-2xl font-medium font-main my-2 md:text-3xl">
+        <p className="text-2xl dark:text-gray-300 font-medium font-main my-2 md:text-3xl">
           {data.title}
         </p>
-        <p className="font-main text-xl text-gray-700">
+        <p className="font-main text-lg mt-4 dark:text-gray-400 text-gray-700">
           {data.description}
         </p>
       </div>
@@ -111,7 +111,7 @@ const Details = () => {
       <div className="flex items-center justify-between mt-3 gap-1 md:gap-5">
         <Link
           to={`/comments/${id}`}
-          className="flex-1 text-center md:py-2 md:px-4 px-2 py-1 bg-white rounded-full text-black font-medium"
+          className="flex-1 text-center md:py-2 md:px-4 px-2 py-1 bg-white dark:text-white dark:bg-gray-600 rounded-full text-black font-medium"
         >
           All Comments
         </Link>
@@ -122,8 +122,8 @@ const Details = () => {
             onClick={() => handleVote("like")}
             className="flex cursor-pointer items-center gap-1 text-black"
           >
-            <AiFillLike size={22} />
-            <span className="font-medium">{data.UpVote}</span>
+            <AiFillLike size={22} className="dark:text-gray-300"/>
+            <span className="font-medium dark:text-gray-300">{data.UpVote}</span>
           </button>
 
           <span>|</span>
@@ -133,14 +133,14 @@ const Details = () => {
             onClick={() => handleVote("dislike")}
             className="flex cursor-pointer items-center gap-1 text-black"
           >
-            <AiFillDislike size={22} />
-            <span className="font-medium">{data.DownVote}</span>
+            <AiFillDislike size={22} className="dark:text-gray-300"/>
+            <span className="font-medium dark:text-gray-300">{data.DownVote}</span>
           </button>
 
           <span>|</span>
 
           {/* Share */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <WhatsappShareButton disabled={!user} url={shareUrl} title={data.title}>
               <WhatsappIcon size={28} round />
             </WhatsappShareButton>

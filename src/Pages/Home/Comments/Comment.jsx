@@ -181,8 +181,8 @@ const Comment = ({ comment }) => {
   }
 
   return (
-    <div className="bg-white p-3 md:p-4 rounded relative">
-      <div className="flex items-center pb-3 border-b border-gray-300 justify-between">
+    <div className="bg-white dark:bg-gray-700 p-3 md:p-4 rounded relative">
+      <div className="flex items-center pb-3 border-b border-gray-300 dark:border-gray-500 justify-between">
         <div className="flex items-center gap-2 md:gap-4">
           <img
             className="rounded-full mx-auto size-12 md:size-14"
@@ -190,20 +190,20 @@ const Comment = ({ comment }) => {
             alt={comment.commenterName}
           />
           <div>
-            <p className="text-lg md:text-xl font-medium font-main">
+            <p className="text-lg md:text-xl font-medium dark:text-gray-300 font-main">
               {comment.commenterName}
             </p>
-            <p className="font-main text-lg md:text-xl font-medium">{time}</p>
+            <p className="font-main text-lg md:text-xl dark:text-gray-300 font-medium">{time}</p>
           </div>
         </div>
         <div>
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="focus:outline-none cursor-pointer p-2 transition-all hover:bg-gray-200 rounded-full"
+              className="focus:outline-none cursor-pointer p-2 transition-all hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
               aria-label="More options"
             >
-              <HiDotsVertical size={20} />
+              <HiDotsVertical size={20} className="dark:text-gray-300"/>
             </button>
 
             <AnimatePresence>
@@ -218,7 +218,7 @@ const Comment = ({ comment }) => {
                   <ul>
                     <li
                       onClick={ReportOpen}
-                      className="px-4 py-2 font-main text-center font-medium hover:bg-gray-100 cursor-pointer"
+                      className="px-4 py-2 font-main  text-center font-medium hover:bg-gray-100 cursor-pointer"
                     >
                       Report
                     </li>
@@ -231,12 +231,12 @@ const Comment = ({ comment }) => {
       </div>
 
       <div className="mt-3">
-        <p className="font-main font-medium text-gray-700">
+        <p className="font-main font-medium dark:text-gray-300 text-gray-700">
           {displayText}
           {isLong && (
             <Button
               onClick={open}
-              className="font-semibold cursor-pointer text-gray-900 ml-1"
+              className="font-semibold dark:text-gray-100 cursor-pointer text-gray-900 ml-1"
             >
               Read more...
             </Button>

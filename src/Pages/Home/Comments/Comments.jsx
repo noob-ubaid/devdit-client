@@ -62,8 +62,8 @@ const Comments = () => {
     navigate("/login");
   };
   return (
-    <div className="max-w-2xl mx-auto bg-gray-200 md:p-4 p-2 rounded-md my-10 md:my-14">
-      <h1 className="text-center text-2xl font-main md:text-3xl lg:text-4xl font-semibold my-4 md:my-6 lg:my-8">
+    <div className="max-w-2xl mx-auto bg-gray-200 dark:bg-gray-800 md:p-4 p-2 rounded-md my-10 md:my-14">
+      <h1 className="text-center text-2xl dark:text-gray-300 font-main md:text-3xl lg:text-4xl font-semibold my-4 md:my-6 lg:my-8">
         All comments
       </h1>
 
@@ -84,7 +84,7 @@ const Comments = () => {
       {user ? (
         <form onSubmit={handleComment} className="space-y-4 mt-4 md:mt-6">
           <input
-            className="px-6 py-3 rounded w-full bg-white outline-none"
+            className="px-6 py-3 rounded w-full dark:bg-gray-700 dark:text-gray-300 bg-white outline-none"
             type="text"
             name="comment"
             placeholder="Write a comment"

@@ -54,6 +54,9 @@ const Navbar = () => {
       <NavLink to="/membership" className={`text-xl dark:text-gray-300 font-second font-medium`}>
         Membership
       </NavLink>
+      <NavLink to="/allposts" className={`text-xl dark:text-gray-300 font-second font-medium`}>
+        All Posts
+      </NavLink>
       {user && (
         <NavLink to="/explore" className={`text-xl dark:text-gray-300 font-second font-medium`}>
           Explore By Tags
@@ -143,7 +146,7 @@ const Navbar = () => {
                     </Link>
                     <button
                       onClick={signOut}
-                      className="block w-full px-4 py-2 bg-main font-main duration-300 text-center rounded"
+                      className="block w-full px-4 text-white py-2 bg-main font-main duration-300 text-center rounded"
                     >
                       Logout
                     </button>

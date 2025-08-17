@@ -40,7 +40,7 @@ const Modal = ({ isOpen, close, comment, profile, name, time }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
+              <DialogPanel className="w-full max-w-md rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg">
                 <div className="flex items-center pb-3 border-b border-gray-300 justify-between">
                   <div className="flex items-center gap-2">
                     <img
@@ -48,11 +48,11 @@ const Modal = ({ isOpen, close, comment, profile, name, time }) => {
                       src={profile}
                       alt={name}
                     />
-                    <p className="text-xl font-medium font-main">{name}</p>
+                    <p className="text-xl font-medium dark:text-gray-300 font-main">{name}</p>
                   </div>
-                  <p className="font-main text-base font-medium text-gray-500">{time}</p>
+                  <p className="font-main text-base font-medium dark:text-gray-300 text-gray-500">{time}</p>
                 </div>
-                <p className="mt-4 text-gray-800 font-main whitespace-pre-wrap">
+                <p className="mt-4 text-gray-800 dark:text-gray-300 font-main whitespace-pre-wrap">
                   {comment}
                 </p>
                 <div className="mt-6">

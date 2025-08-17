@@ -19,6 +19,7 @@ import useDashboardHomeRedirect from "../hooks/useDashboardRedirect";
 import Reports from "../Pages/Admin/Reports/Reports";
 import About from "../Components/About/About";
 import Explore from "../Components/ExploreByTags/Explore";
+import AllPostsPage from "../Components/AllPostsPage/AllPostsPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         Component: About,
+      },
+      {
+        path: "/allposts",
+        Component: AllPostsPage,
       },
       {
         path: "/explore",

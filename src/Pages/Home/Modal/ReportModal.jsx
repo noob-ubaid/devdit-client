@@ -66,20 +66,20 @@ const ReportModal = ({ isOpen, close, commentId }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
-                <Dialog.Title className="text-lg font-main font-semibold mb-4">
+              <DialogPanel className="w-full max-w-md rounded-xl bg-white dark:bg-gray-700 p-6 shadow-lg">
+                <Dialog.Title className="text-lg dark:text-gray-300 font-main font-semibold mb-4">
                   Report this comment
                 </Dialog.Title>
                 <select
                   onChange={(e) => setReport(e.target.value)}
-                  className="border outline-none font-medium border-gray-300 rounded p-2 font-main w-full text-center"
+                  className="border outline-none font-medium border-gray-300 dark:text-white rounded p-2 font-main w-full text-center"
                   defaultValue=""
                 >
                   <option value="" disabled>
                     Select a reason
                   </option>
                   {feedbackOptions.map((feedback, index) => (
-                    <option key={index} value={feedback}>
+                    <option key={index} className="dark:text-black" value={feedback}>
                       {feedback}
                     </option>
                   ))}

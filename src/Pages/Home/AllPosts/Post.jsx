@@ -10,8 +10,7 @@ const Post = ({ post }) => {
   const time = useTimeAgo(post.date);
 
   return (
-    <Link to={`/post/${post._id}`} key={post._id}>
-      <div className="rounded bg-gray-100 dark:bg-gray-800 p-3 w-full max-w-full overflow-hidden">
+      <div className="rounded bg-gray-100 dark:bg-gray-800 p-4 w-full max-w-full overflow-hidden">
         <div className="flex flex-wrap items-center border-b border-gray-400 pb-4 justify-between gap-2">
           <div className="flex items-center gap-2">
             <img
@@ -19,7 +18,7 @@ const Post = ({ post }) => {
               src={post.image}
               alt={post.name}
             />
-            <p className="text-xl dark:text-gray-300 md:text-[22px] font-medium font-main">
+            <p className="text-xl dark:text-gray-300 md:text-[21px] font-medium font-main">
               {post.name}
             </p>
           </div>
@@ -41,25 +40,9 @@ const Post = ({ post }) => {
           <p className="md:text-lg dark:text-gray-300 text-base font-main md:font-semibold font-medium">
             {time}
           </p>
-          <div className="flex flex-wrap items-center gap-2 text-black">
-            <div data-tip="Total Comments" className="flex items-center gap-1">
-              <FaComment size={22} className="dark:text-gray-300"/>
-              <p className="font-medium dark:text-gray-300">{isLoading ? "..." : comments.length}</p>
-            </div>
-            |
-            <div data-tip="Total Upvote" className="flex items-center gap-1">
-              <AiFillLike size={22} className="dark:text-gray-300"/>
-              <p className="font-medium dark:text-gray-300">{post.UpVote}</p>
-            </div>
-            |
-            <div data-tip="Total Downvote" className="flex items-center gap-1">
-              <AiFillDislike size={22} className="dark:text-gray-300"/>
-              <p className="font-medium dark:text-gray-300">{post.DownVote}</p>
-            </div>
-          </div>
+          <Link className="bg-main text-white font-medium px-5 py-2 rounded" to={`/post/${post._id}`}>View More</Link>
         </div>
       </div>
-    </Link>
   );
 };
 

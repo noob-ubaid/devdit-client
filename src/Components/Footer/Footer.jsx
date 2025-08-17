@@ -2,8 +2,9 @@ import React from "react";
 import Logo from "../../shared/Logo";
 import { Link } from "react-router";
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa6";
-
+import useAuth from "../../hooks/useAuth";
 const Footer = () => {
+  const {user} = useAuth()
   return (
     <footer className="bg-[#8ecae6] dark:bg-gray-900 flex-col py-14 md:py-20 flex items-center justify-center">
       <div className="max-w-3xl mx-auto">
@@ -34,8 +35,18 @@ const Footer = () => {
             className="font-medium font-second dark:text-gray-300 hover:text-main duration-200 text-sm sm:text-base"
             to="/about"
           >
+            
             About Us
           </Link>
+          {
+              user && <Link
+            className="font-medium font-second dark:text-gray-300 hover:text-main duration-200 text-sm sm:text-base"
+            to="/explore"
+          >
+            
+            Explore by tags
+          </Link>
+            }
           <Link
             className="font-medium font-second dark:text-gray-300 hover:text-main duration-200 text-sm sm:text-base"
             to="/dashboard"
