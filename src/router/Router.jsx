@@ -15,7 +15,6 @@ import Announcement from "../Pages/Admin/Announcement/Announcement";
 import Details from "../Pages/Home/Details/Details";
 import Comments from "../Pages/Home/Comments/Comments";
 import AdminRoute from "../contexts/AdminRoute";
-import useDashboardHomeRedirect from "../hooks/useDashboardRedirect";
 import Reports from "../Pages/Admin/Reports/Reports";
 import About from "../Components/About/About";
 import Explore from "../Components/ExploreByTags/Explore";

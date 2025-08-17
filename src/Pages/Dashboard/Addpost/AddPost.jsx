@@ -30,7 +30,6 @@ const AddPost = () => {
       return res.data;
     },
   });
-console.log(posts)
   const addPostMutation = useMutation({
     mutationFn: async (newPost) => {
       const res = await axiosSecure.post("/add-post", newPost);

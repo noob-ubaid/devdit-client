@@ -72,7 +72,7 @@ const Details = () => {
   const shareUrl = `${window.location.origin}/post/${id}`;
     if (isPending) return <Loader />;
   return (
-    <div className="rounded bg-gray-100 dark:bg-gray-800 p-4 my-10 md:my-24 max-w-[600px] mx-auto">
+    <div className="rounded bg-gray-100 dark:bg-gray-800 p-4 my-10 md:my-24 max-w-[630px] mx-auto">
       {/* Top Info */}
       <div className="flex items-center flex-col border-b border-gray-400 pb-4 justify-between">
         <div className="flex items-center justify-center w-full gap-1 sm:gap-2">
