@@ -99,10 +99,10 @@ const Details = () => {
 
       {/* Post Description */}
       <div className="border-b border-gray-400 pb-4">
-        <p className="text-xl font-medium font-main my-2 md:text-2xl">
+        <p className="text-2xl font-medium font-main my-2 md:text-3xl">
           {data.title}
         </p>
-        <p className="font-second text-gray-700">
+        <p className="font-main text-xl text-gray-700">
           {data.description}
         </p>
       </div>

@@ -29,10 +29,10 @@ const Post = ({ post }) => {
         </div>
 
         <div className="border-b border-gray-400 pb-4">
-          <p className="text-xl font-medium font-main my-2 md:text-2xl">
+          <p className="text-xl font-medium  h-[70px] font-main my-2 md:text-2xl">
             {post.title}
           </p>
-          <p className="font-second text-gray-700 line-clamp-2 min-h-[50px]">
+          <p className="font-second text-gray-700  line-clamp-2 min-h-[50px]">
             {post.description}
           </p>
         </div>

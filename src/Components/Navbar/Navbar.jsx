@@ -9,9 +9,12 @@ import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../hooks/useAxiosSecure";
 import Loader from "../../shared/Loader";
-
+import { useDarkMode } from "../../contexts/ThemeContext";
+import { MdDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const { darkMode, setDarkMode } = useDarkMode();
   const [profile, setProfile] = useState(false);
   const dropdownRef = useRef();
   const signOut = async () => {
@@ -45,7 +48,7 @@ const Navbar = () => {
 
   const links = (
     <div className="flex flex-col lg:flex-row items-center gap-6">
-      <NavLink to="/" className={`text-xl font-second font-medium`}>
+      <NavLink to="/" className={`text-xl dark:text-white font-second font-medium`}>
         Home
       </NavLink>
       <NavLink to="/membership" className={`text-xl font-second font-medium`}>
@@ -98,6 +101,13 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-1 md:gap-3 relative">
+          <button className="end" onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? (
+            <CiLight className="text-2xl text-white md:text-4xl" />
+          ) : (
+            <MdDarkMode className="text-2xl text-black md:text-4xl" />
+          )}
+        </button>
           <div className="relative">
             <IoNotificationsCircleOutline size={52} />
             <p className="absolute right-0 top-0 bg-white py-[1px] text-sm px-[7px] rounded-full ">
