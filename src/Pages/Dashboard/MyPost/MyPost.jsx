@@ -83,9 +83,9 @@ const [currentPage, setCurrentPage] = useState(0);
         My Posts
       </h2>
       <div className="overflow-x-auto mt-6">
-        <table className="table table-zebra border border-gray-300 rounded w-full">
+        <table className="table border border-gray-300 dark:border-gray-700 rounded w-full">
           {/* Table Head */}
-          <thead className="bg-base-200 text-base font-medium">
+          <thead className="bg-base-200 text-base dark:bg-gray-800 dark:text-white font-medium">
             <tr>
               <th className="text-center font-second">#</th>
               <th className="text-center font-second">Post Title</th>
@@ -98,7 +98,7 @@ const [currentPage, setCurrentPage] = useState(0);
           {/* Table Body */}
           <tbody>
             {posts.result.map((post, index) => (
-              <tr key={post._id}>
+              <tr className="dark:text-white" key={post._id}>
                 <td className="text-center">{index + 1}</td>
                 <td className="max-w-[200px] font-second font-medium text-center truncate">
                   {post.title}

@@ -6,13 +6,19 @@ import {
   MdOutlineArticle,
   MdError,
   MdManageAccounts,
+  MdDarkMode,
 } from "react-icons/md";
 import { GrAnnounce } from "react-icons/gr";
 import Logo from "../shared/Logo";
 import Loader from "../shared/Loader";
 import useRole from "../hooks/useRole";
+import useAuth from "../hooks/useAuth";
+import { useDarkMode } from "../contexts/ThemeContext";
+import { CiLight } from "react-icons/ci";
 
 const DashboardLayout = () => {
+  const { user } = useAuth();
+  const { darkMode, setDarkMode } = useDarkMode();
   const [role, isPending] = useRole();
   if (isPending) return <Loader />;
 
@@ -47,7 +53,7 @@ const DashboardLayout = () => {
           </div>
 
           {/* Page content */}
-          <div className="md:p-8 p-4">
+          <div className="md:p-8 bg-white dark:bg-black min-h-screen p-4">
             <Outlet />
           </div>
         </div>
@@ -60,103 +66,128 @@ const DashboardLayout = () => {
             className="drawer-overlay"
           ></label>
 
-          <ul className="menu bg-main min-h-full w-80 p-4 pt-10">
-            <Link to="/">
-              <Logo footer={true} />
-            </Link>
+          <ul className="menu bg-main flex flex-col justify-between min-h-full w-80 p-4 pt-10">
+            <div>
+              <Link to="/">
+                <Logo footer={true} />
+              </Link>
 
-            <li className="mt-6 flex flex-col gap-2">
-              {(role === "user" || role === "member") && (
-                <>
-                  <NavLink
-                    to="/dashboard/myProfile" // ✅ Updated path for highlight
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <FaUser className="inline-block" />
-                    My Profile
-                  </NavLink>
+              <li className="mt-6 flex flex-col gap-2">
+                {(role === "user" || role === "member") && (
+                  <>
+                    <NavLink
+                      to="/dashboard/myProfile"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <FaUser className="inline-block" />
+                      My Profile
+                    </NavLink>
 
-                  <NavLink
-                    to="/dashboard/addPost"
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <MdAddCircleOutline className="inline-block" />
-                    Add Post
-                  </NavLink>
+                    <NavLink
+                      to="/dashboard/addPost"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <MdAddCircleOutline className="inline-block" />
+                      Add Post
+                    </NavLink>
 
-                  <NavLink
-                    to="/dashboard/myPost"
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <MdOutlineArticle className="inline-block" />
-                    My Posts
-                  </NavLink>
-                </>
-              )}
+                    <NavLink
+                      to="/dashboard/myPost"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <MdOutlineArticle className="inline-block" />
+                      My Posts
+                    </NavLink>
+                  </>
+                )}
 
-              {role === "admin" && (
-                <>
+                {role === "admin" && (
+                  <>
                   <NavLink
-                    to="/dashboard/adminProfile"
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <FaUser className="inline-block" />
-                    Admin Profile
-                  </NavLink>
+                      to="/dashboard/myProfile"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <FaUser className="inline-block" />
+                      My Profile
+                    </NavLink>
+                    <NavLink
+                      to="/dashboard/adminProfile"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <FaUser className="inline-block" />
+                      Admin Profile
+                    </NavLink>
 
-                  <NavLink
-                    to="/dashboard/manageUsers"
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <MdManageAccounts className="inline-block" />
-                    Manage Users
-                  </NavLink>
-                  <NavLink
-                    to="/dashboard/reports"
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <MdError className="inline-block" />
-                    Reported Activities
-                  </NavLink>
+                    <NavLink
+                      to="/dashboard/manageUsers"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <MdManageAccounts className="inline-block" />
+                      Manage Users
+                    </NavLink>
+                    <NavLink
+                      to="/dashboard/reports"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <MdError className="inline-block" />
+                      Reported Activities
+                    </NavLink>
 
-                  <NavLink
-                    to="/dashboard/announcement"
-                    className={({ isActive }) =>
-                      `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
-                        isActive ? "bg-base-200 text-main" : "text-white"
-                      }`
-                    }
-                  >
-                    <GrAnnounce className="inline-block" />
-                    Make Announcement
-                  </NavLink>
-                </>
-              )}
-            </li>
+                    <NavLink
+                      to="/dashboard/announcement"
+                      className={({ isActive }) =>
+                        `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
+                          isActive ? "bg-base-200 text-main" : "text-white"
+                        }`
+                      }
+                    >
+                      <GrAnnounce className="inline-block" />
+                      Make Announcement
+                    </NavLink>
+                  </>
+                )}
+              </li>
+            </div>
+            <div className="flex items-center justify-between pb-6">
+              <p className="font-medium text-white text-2xl">
+                {user.displayName}
+              </p>
+              <button className="end" onClick={() => setDarkMode(!darkMode)}>
+                {darkMode ? (
+                  <CiLight size={42} className=" text-white " />
+                ) : (
+                  <MdDarkMode size={42} className=" text-black " />
+                )}
+              </button>
+            </div>
           </ul>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../Pages/Home/Home/Home";
 import Membership from "../Pages/Membership/Membership";
@@ -76,11 +76,11 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
-        Component: useDashboardHomeRedirect,
+        index : true,
+        element : <Navigate to="myProfile" replace />
       },
       {
-        path: "myProfile",
+        path : 'myProfile',
         Component: MyProfile,
       },
       {

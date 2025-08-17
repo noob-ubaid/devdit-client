@@ -32,7 +32,7 @@ const MyProfile = () => {
   return (
     <div>
       {/* Profile Section */}
-      <div className="flex items-center flex-col md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-2 md:p-6 rounded-md">
+      <div className="flex items-center flex-col dark:bg-gray-800 dark:text-gray-300 md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-2 md:p-6 rounded-md">
         <div className="flex items-center gap-2 md:gap-4">
           <img
             className="size-14 md:size-16 rounded-full"
@@ -58,11 +58,11 @@ const MyProfile = () => {
       {/* Posts Section */}
       <div>
         {posts.length === 0 ? (
-          <div className="bg-[rgba(15,15,15,0.05)] w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
-            <h4 className="font-semibold font-main text-2xl md:text-3xl text-[#141414]">
+          <div className="bg-[rgba(15,15,15,0.05)] dark:bg-gray-800 dark:text-gray-300 w-full py-16 md:mb-28 text-center px-4 md:px-0 mt-6 md:mt-10 rounded-md">
+            <h4 className="font-semibold font-main  text-2xl dark:text-gray-300  md:text-3xl text-[#141414]">
               You haven’t added any posts yet
             </h4>
-            <p className="mt-4 font-second max-w-2xl text-center mx-auto text-[#141414B3]">
+            <p className="mt-4 font-second max-w-2xl text-center dark:text-gray-300  mx-auto text-[#141414B3]">
               Start building your presence by adding your first post, sharing
               your ideas with others, and growing your knowledge within the
               community.
@@ -78,7 +78,7 @@ const MyProfile = () => {
           </div>
         ) : (
           <div>
-            <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium font-main mt-10 md:mt-14">
+            <h2 className="text-center text-2xl dark:text-gray-300  md:text-3xl lg:text-4xl font-medium font-main mt-10 md:mt-14">
               My Recent posts
             </h2>
             <div className="grid grid-cols-1 mt-8 md:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">

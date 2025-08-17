@@ -72,7 +72,7 @@ const Details = () => {
   const shareUrl = `${window.location.origin}/post/${id}`;
     if (isPending) return <Loader />;
   return (
-    <div className="rounded bg-gray-100 dark:bg-gray-800 p-4 my-10 md:my-24 max-w-[700px] mx-auto">
+    <div className="rounded bg-gray-100 dark:bg-gray-800 p-4 my-10 md:my-24 max-w-[600px] mx-auto">
       {/* Top Info */}
       <div className="flex items-center flex-col border-b border-gray-400 pb-4 justify-between">
         <div className="flex items-center justify-center w-full gap-1 sm:gap-2">
@@ -111,12 +111,12 @@ const Details = () => {
       <div className="flex items-center justify-between mt-3 gap-1 md:gap-5">
         <Link
           to={`/comments/${id}`}
-          className="flex-1 text-center md:py-2 md:px-4 px-2 py-1 bg-white dark:text-white dark:bg-gray-600 rounded-full text-black font-medium"
+          className="flex-1 text-center md:py-2 md:px-4 px-2 py-1 bg-white dark:text-white dark:bg-gray-600 rounded text-black font-medium"
         >
           All Comments
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-1 items-center gap-4 justify-center">
           {/* Like */}
           <button
             onClick={() => handleVote("like")}
@@ -140,7 +140,7 @@ const Details = () => {
           <span>|</span>
 
           {/* Share */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <WhatsappShareButton disabled={!user} url={shareUrl} title={data.title}>
               <WhatsappIcon size={28} round />
             </WhatsappShareButton>

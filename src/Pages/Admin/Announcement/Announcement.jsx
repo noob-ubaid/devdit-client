@@ -32,13 +32,13 @@ const Announcement = () => {
   };
   return (
     <div>
-      <h1 className="text-center text-2xl font-main md:text-3xl  lg:text-4xl font-semibold mt-8 md:mt-12">
+      <h1 className="text-center text-2xl dark:text-gray-300 font-main md:text-3xl  lg:text-4xl font-semibold mt-8 md:mt-12">
         Create Announcement
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col mt-6 md:gap-6 gap-4 md:mt-10 w-full">
           <input
-            className=" px-6 py-3 rounded bg-gray-200 outline-none"
+            className=" px-6 py-3 rounded bg-gray-200 dark:bg-gray-800 dark:text-white outline-none"
             type="text"
             name="title"
             placeholder="Enter your announcement title"
@@ -51,7 +51,7 @@ const Announcement = () => {
             required
             onChange={handleDescription}
             placeholder="Description"
-            className=" px-6  py-3 rounded bg-gray-200 outline-none"
+            className=" px-6  py-3 rounded dark:bg-gray-800 dark:text-white bg-gray-200 outline-none"
           ></textarea>
 
           <button

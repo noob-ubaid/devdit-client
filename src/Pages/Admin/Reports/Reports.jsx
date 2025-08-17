@@ -51,13 +51,13 @@ const Reports = () => {
   if (isPending) return <Loader />;
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-semibold text-center mb-4">
+      <h2 className="text-2xl md:text-3xl dark:text-gray-300 font-semibold text-center mb-4">
         Reported Comments
       </h2>
       <div className="overflow-x-auto rounded-lg border border-gray-200">
-        <table className="table table-zebra w-full">
+        <table className="table w-full">
           <thead className="bg-base-200 text-base">
-            <tr className="text-center font-main ">
+            <tr className="text-center font-main dark:bg-gray-800 dark:text-gray-300">
               <th>#</th>
               <th>Commenter Email</th>
               <th>Reporter Email</th>
@@ -68,7 +68,7 @@ const Reports = () => {
           </thead>
           <tbody>
             {reports?.reports.map((report, idx) => (
-              <tr key={report._id} className="text-center">
+              <tr key={report._id} className="text-center dark:text-gray-300">
                 <td>{idx + 1}</td>
                 <td className="font-medium font-main text-base md:text-lg">
                   {report.commenterEmail}

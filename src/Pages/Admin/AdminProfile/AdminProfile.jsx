@@ -41,7 +41,7 @@ const AdminProfile = () => {
   return (
     <div>
       {/* Profile Section */}
-      <div className="flex items-center flex-col md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-4 md:p-6 rounded-md">
+      <div className="flex items-center flex-col  dark:bg-gray-800  md:flex-row justify-between mt-6 md:mt-0 bg-base-200 p-4 md:p-6 rounded-md">
         <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
           <img
             className="size-12 md:size-16 rounded-full"
@@ -49,10 +49,10 @@ const AdminProfile = () => {
             alt={user?.displayName || "Admin"}
           />
           <div>
-            <p className="text-xl font-main text-center md:text-left md:font-bold font-medium">
+            <p className="text-xl font-main dark:text-gray-300 text-center md:text-left md:font-bold font-medium">
               {user?.displayName}
             </p>
-            <p className="text-lg font-main text-center md:text-left font-medium md:font-semibold">
+            <p className="text-lg font-main text-center dark:text-gray-300 md:text-left font-medium md:font-semibold">
               {user?.email}
             </p>
           </div>
@@ -70,22 +70,25 @@ const AdminProfile = () => {
       </div>
 
       {/* Pie Chart */}
-      <div className="flex items-center justify-center w-full max-w-[480px] mx-auto mt-10">
-        <ResponsiveContainer width="100%" aspect={1}>
-          <PieChart>
-            <Pie
-              data={[
-                { name: "Number of users", uv: users.length },
-                { name: "Number of posts", uv: posts.length },
-                { name: "Number of comments", uv: allComments.length },
-              ]}
-              dataKey="uv"
-              fill="#3D74B6"
-              label
-            />
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
+
+      <div className="flex items-center justify-center w-full max-w-[480px] mx-auto mt-8">
+        <div className="w-full aspect-square p-4 rounded-lg ">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={[
+                  { name: "Number of users", uv: users.length },
+                  { name: "Number of posts", uv: posts.length },
+                  { name: "Number of comments", uv: allComments.length },
+                ]}
+                dataKey="uv"
+                fill="#3D74B6"
+                label
+              />
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

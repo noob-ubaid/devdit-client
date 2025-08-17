@@ -76,7 +76,7 @@ const ManageUsers = () => {
   const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl font-semibold text-center mb-4">
+      <h2 className="text-2xl md:text-3xl dark:text-gray-300 font-semibold text-center mb-4">
         Manage Users
       </h2>
 
@@ -84,16 +84,16 @@ const ManageUsers = () => {
         <input
           type="text"
           placeholder="Search by username"
-          className="input input-bordered w-full focus:outline-none"
+          className="input input-bordered w-full dark:bg-gray-900 dark:text-white focus:outline-none"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-gray-200">
-        <table className="table table-zebra w-full">
+        <table className="table w-full border-none">
           <thead className="bg-base-200 text-base">
-            <tr className="text-center">
+            <tr className="text-center dark:bg-gray-800 dark:text-gray-300">
               <th>#</th>
               <th>User Name</th>
               <th>Email</th>
@@ -103,7 +103,7 @@ const ManageUsers = () => {
           </thead>
           <tbody>
             {users?.users?.map((user, idx) => (
-              <tr key={user._id} className="text-center">
+              <tr key={user._id} className="text-center dark:border-b dark:border-gray-500 dark:text-gray-300">
                 <td>{idx + 1}</td>
                 <td className="font-medium font-main text-base md:text-lg">
                   {user.name}
