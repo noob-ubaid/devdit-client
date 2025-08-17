@@ -42,7 +42,7 @@ const AllPosts = ({ search }) => {
 
   return (
     <div>
-      <h1 className="text-center text-2xl font-main md:text-3xl lg:text-4xl font-semibold mt-8 md:mt-12">
+      <h1 className="text-center dark:text-gray-300 text-2xl font-main md:text-3xl lg:text-4xl font-semibold mt-8 md:mt-12">
         All Posts
       </h1>
 
@@ -67,7 +67,7 @@ const AllPosts = ({ search }) => {
             <button
               disabled={currentPage < 1}
               onClick={handlePrevPage}
-              className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+              className={`bg-gray-300 dark:bg-gray-100 px-3 py-2 rounded font-medium font-main ${
                 currentPage < 1
                   ? "cursor-not-allowed bg-gray-100"
                   : "cursor-pointer"
@@ -82,7 +82,7 @@ const AllPosts = ({ search }) => {
                 className={
                   currentPage === page
                     ? "bg-main px-4 font-medium py-2 cursor-pointer rounded text-white "
-                    : "bg-gray-300 font-medium px-4 cursor-pointer py-2 rounded text-black "
+                    : "bg-gray-300 dark:bg-gray-100 font-medium px-4 cursor-pointer py-2 rounded text-black "
                 }
               >
                 {page + 1}
@@ -91,7 +91,7 @@ const AllPosts = ({ search }) => {
             <button
               disabled={currentPage === pages.length - 1}
               onClick={handleNextPage}
-              className={`bg-gray-300 px-3 py-2 rounded font-medium font-main ${
+              className={`bg-gray-300 dark:bg-gray-100 px-3 py-2 rounded font-medium font-main ${
                 currentPage === pages.length - 1
                   ? "cursor-not-allowed bg-gray-100"
                   : "cursor-pointer"

@@ -48,25 +48,25 @@ const Navbar = () => {
 
   const links = (
     <div className="flex flex-col lg:flex-row items-center gap-6">
-      <NavLink to="/" className={`text-xl dark:text-white font-second font-medium`}>
+      <NavLink to="/" className={`text-xl dark:text-gray-300 font-second font-medium`}>
         Home
       </NavLink>
-      <NavLink to="/membership" className={`text-xl font-second font-medium`}>
+      <NavLink to="/membership" className={`text-xl dark:text-gray-300 font-second font-medium`}>
         Membership
       </NavLink>
       {user && (
-        <NavLink to="/explore" className={`text-xl font-second font-medium`}>
+        <NavLink to="/explore" className={`text-xl dark:text-gray-300 font-second font-medium`}>
           Explore By Tags
         </NavLink>
       )}
-      <NavLink to="/about" className={`text-xl font-second font-medium`}>
+      <NavLink to="/about" className={`text-xl dark:text-gray-300 font-second font-medium`}>
         About Us
       </NavLink>
     </div>
   );
   if (isLoading) return <Loader />;
   return (
-    <div className="sticky top-0 bg-[#8ecae6] z-50 py-4 px-3 md:px-4 overflow-visible">
+    <div className="sticky top-0 bg-[#8ecae6] dark:bg-gray-900 z-50 py-4 px-3 md:px-4 overflow-visible">
       <div className="max-w-[1500px] flex items-center justify-between mx-auto relative">
         <div className="flex items-center">
           <div className="dropdown">
@@ -100,16 +100,16 @@ const Navbar = () => {
           {links}
         </div>
 
-        <div className="flex items-center gap-1 md:gap-3 relative">
+        <div className="flex items-center gap-2 md:gap-3 relative">
           <button className="end" onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? (
-            <CiLight className="text-2xl text-white md:text-4xl" />
-          ) : (
-            <MdDarkMode className="text-2xl text-black md:text-4xl" />
-          )}
-        </button>
+            {darkMode ? (
+              <CiLight size={42} className=" text-white" />
+            ) : (
+              <MdDarkMode size={42} className=" text-black " />
+            )}
+          </button>
           <div className="relative">
-            <IoNotificationsCircleOutline size={52} />
+            <IoNotificationsCircleOutline size={52} className="dark:text-gray-300"/>
             <p className="absolute right-0 top-0 bg-white py-[1px] text-sm px-[7px] rounded-full ">
               {announcement.length}
             </p>

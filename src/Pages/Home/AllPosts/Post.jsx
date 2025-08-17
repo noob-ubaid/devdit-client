@@ -11,7 +11,7 @@ const Post = ({ post }) => {
 
   return (
     <Link to={`/post/${post._id}`} key={post._id}>
-      <div className="rounded bg-gray-100 p-3 w-full max-w-full overflow-hidden">
+      <div className="rounded bg-gray-100 dark:bg-gray-800 p-3 w-full max-w-full overflow-hidden">
         <div className="flex flex-wrap items-center border-b border-gray-400 pb-4 justify-between gap-2">
           <div className="flex items-center gap-2">
             <img
@@ -19,7 +19,7 @@ const Post = ({ post }) => {
               src={post.image}
               alt={post.name}
             />
-            <p className="text-xl md:text-[22px] font-medium font-main">
+            <p className="text-xl dark:text-gray-300 md:text-[22px] font-medium font-main">
               {post.name}
             </p>
           </div>
@@ -29,32 +29,32 @@ const Post = ({ post }) => {
         </div>
 
         <div className="border-b border-gray-400 pb-4">
-          <p className="text-xl font-medium  h-[70px] font-main my-2 md:text-2xl">
+          <p className="text-xl dark:text-gray-300 font-medium  h-[70px] font-main my-2 md:text-2xl">
             {post.title}
           </p>
-          <p className="font-second text-gray-700  line-clamp-2 min-h-[50px]">
+          <p className="font-second text-gray-700 dark:text-gray-400 line-clamp-2 min-h-[50px]">
             {post.description}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-between mt-3 gap-2 md:gap-5">
-          <p className="md:text-lg text-base font-main md:font-semibold font-medium">
+          <p className="md:text-lg dark:text-gray-300 text-base font-main md:font-semibold font-medium">
             {time}
           </p>
           <div className="flex flex-wrap items-center gap-2 text-black">
             <div data-tip="Total Comments" className="flex items-center gap-1">
-              <FaComment size={22} />
-              <p className="font-medium">{isLoading ? "..." : comments.length}</p>
+              <FaComment size={22} className="dark:text-gray-300"/>
+              <p className="font-medium dark:text-gray-300">{isLoading ? "..." : comments.length}</p>
             </div>
             |
             <div data-tip="Total Upvote" className="flex items-center gap-1">
-              <AiFillLike size={22} />
-              <p className="font-medium">{post.UpVote}</p>
+              <AiFillLike size={22} className="dark:text-gray-300"/>
+              <p className="font-medium dark:text-gray-300">{post.UpVote}</p>
             </div>
             |
             <div data-tip="Total Downvote" className="flex items-center gap-1">
-              <AiFillDislike size={22} />
-              <p className="font-medium">{post.DownVote}</p>
+              <AiFillDislike size={22} className="dark:text-gray-300"/>
+              <p className="font-medium dark:text-gray-300">{post.DownVote}</p>
             </div>
           </div>
         </div>

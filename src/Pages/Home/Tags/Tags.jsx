@@ -14,7 +14,7 @@ const Tags = () => {
   if (isLoading) return <Loader />;
   return (
     <div>
-      <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium md:font-semibold font-main mt-10 md:mt-14">
+      <h2 className="text-center text-2xl dark:text-gray-300 md:text-3xl lg:text-4xl font-medium md:font-semibold font-main mt-10 md:mt-14">
         Explore by tags
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 my-6 md:my-10 lg:grid-cols-5 gap-4 md:gap-6 lg:gap-8">

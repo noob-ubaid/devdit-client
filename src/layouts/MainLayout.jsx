@@ -9,7 +9,7 @@ const MainLayout = () => {
   const { loading } = useAuth();
   if (loading) return <Loader />;
   return (
-    <div className="bg-white dark:bg-gray-900">
+    <div className="bg-white dark:bg-black">
       <Navbar />
       <div className="max-w-[1500px] mx-auto px-4 2xl:px-0">
         <Outlet />

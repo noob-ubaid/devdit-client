@@ -14,12 +14,15 @@ const AnnouncementsHome = () => {
   if (isLoading) return <Loader />;
   return (
     <div>
-      <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-medium md:font-semibold font-main mt-10 md:mt-14">
+      <h2 className="text-center text-2xl dark:text-gray-300 md:text-3xl lg:text-4xl font-medium md:font-semibold font-main mt-10 md:mt-14">
         Recent announcements
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 my-6 md:my-10  lg:grid-cols-3 gap-6 md:gap-8">
         {announcement.map((announce) => (
-          <div key={announce._id} className="bg-gray-100 rounded-sm p-4 md:p-6">
+          <div
+            key={announce._id}
+            className="bg-gray-100 dark:bg-gray-800 rounded-sm p-4 md:p-6"
+          >
             <div className="flex items-center justify-between border-b border-gray-400 pb-4">
               <div className="flex items-center  gap-2 md:gap-4">
                 <img
@@ -27,19 +30,21 @@ const AnnouncementsHome = () => {
                   src={announce.authorImage}
                   alt={announce.title}
                 />
-                <p className="text-xl md:text-2xl font-medium font-main">
+                <p className="text-xl dark:text-gray-300 md:text-2xl font-medium font-main">
                   {announce.authorName}
                 </p>
               </div>
               <div>
-                <p className="bg-blue-200 font-medium sm:px-3 py-1 px-2 rounded-full text-blue-800">Admin</p>
+                <p className="bg-blue-200 font-medium sm:px-3 py-1 px-2 rounded-full text-blue-800">
+                  Admin
+                </p>
               </div>
             </div>
             <div className="my-4">
-              <p className="text-xl md:text-2xl md:text-left font-main font-medium">
+              <p className="text-xl md:text-2xl dark:text-gray-300 md:text-left font-main font-medium">
                 {announce.title}
               </p>
-              <p className="text-lg md:text-left mt-2 text-gray-600 font-second ">
+              <p className="text-lg md:text-left dark:text-gray-400 mt-4 text-gray-600 font-second ">
                 {announce.description}
               </p>
             </div>
