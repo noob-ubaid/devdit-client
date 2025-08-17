@@ -30,7 +30,7 @@ const Explore = () => {
   if (isPending) return <Loader />;
   return (
     <div className="py-14 md:py-20">
-      <h4 className="text-2xl font-semibold font-main md:text-3xl lg:text-4xl text-center">
+      <h4 className="text-2xl font-semibold dark:text-gray-300 font-main md:text-3xl lg:text-4xl text-center">
         Explore by tags
       </h4>
       <div className="grid grid-cols-1 md:grid-cols-3 my-8 sm:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -47,8 +47,8 @@ const Explore = () => {
         ))}
       </div>
       {clickedTag === "" && (
-        <div className="bg-gray-100  rounded-md w-full py-12">
-          <p className="text-center text-2xl font-medium font-main md:text-3xl">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-md w-full py-12">
+          <p className="text-center text-2xl dark:text-gray-300 font-medium font-main md:text-3xl">
             Select tag to get the selected posts
           </p>
         </div>
@@ -88,8 +88,8 @@ const Explore = () => {
         </div>
       )}
       {
-        posts.length === 0 && clickedTag !== '' && <div className="bg-gray-100 rounded-md py-12">
-            <p className="text-center text-2xl font-medium font-main md:text-3xl">No posts found related to <span className="font-semibold">{clickedTag}</span>.Try another tag</p>
+        posts.length === 0 && clickedTag !== '' && <div className="bg-gray-100 dark:bg-gray-800 rounded-md py-12">
+            <p className="text-center text-2xl font-medium font-main dark:text-gray-300 md:text-3xl">No posts found related to <span className="font-semibold">{clickedTag}</span>.Try another tag</p>
         </div>
       }
     </div>

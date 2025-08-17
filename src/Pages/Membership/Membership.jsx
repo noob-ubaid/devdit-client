@@ -11,11 +11,11 @@ const Membership = () => {
   const navigate = useNavigate();
   if (role === "member") {
     return (
-      <div className="max-w-xl mx-auto my-20 py-12 px-12 md:py-16 bg-green-100 rounded-md text-center">
-        <h2 className="text-2xl md:text-3xl font-semibold text-green-800 font-main">
+      <div className="max-w-xl mx-auto my-20 py-12 px-12 md:py-16 bg-green-100 dark:bg-gray-800 rounded-md text-center">
+        <h2 className="text-2xl md:text-3xl dark:text-gray-300 font-semibold text-green-800 font-main">
           🎉 You are already a member!
         </h2>
-        <p className="mt-4 text-green-700 font-second">
+        <p className="mt-4 text-green-700 dark:text-gray-300 font-second">
           Thank you for supporting us. As a member, you can post unlimited
           content, access exclusive resources, and contribute more actively to
           our community.
@@ -32,10 +32,10 @@ const Membership = () => {
   if (isPending) return <Loader />;
   return (
     <div className="my-16">
-      <h4 className="text-2xl md:text-3xl font-semibold font-main text-center mt-10">
+      <h4 className="text-2xl md:text-3xl font-semibold dark:text-gray-300 font-main text-center mt-10">
         Become a Member and Unlock More Features
       </h4>
-      <p className="font-main md:text-xl text-lg font-medium text-center my-6 max-w-3xl mx-auto">
+      <p className="font-main md:text-xl text-lg font-medium dark:text-gray-300 text-center my-6 max-w-3xl mx-auto">
         Become a valued member of our forum community to post unlimited content,
         receive a Gold Badge, and support the platform.
       </p>

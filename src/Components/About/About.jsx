@@ -18,18 +18,18 @@ const whyPeopleUsePoints = [
 const About = () => {
   return (
     <div className="py-14 md:py-20">
-      <h3 className="text-[27px] font-semibold font-main md:text-3xl lg:text-4xl xl:text-5xl text-center ">
+      <h3 className="text-[27px] dark:text-gray-300 font-semibold font-main md:text-3xl lg:text-4xl xl:text-5xl text-center ">
         Welcome to Devdit
       </h3>
-      <p className="text-center text-gray-700 mt-5 md:mt-3 font-main">
+      <p className="text-center dark:text-gray-400 text-gray-700 mt-5 md:mt-3 font-main">
         A modern, engaging platform for sharing ideas, discussions, and
         knowledge.
       </p>
       <div className="mt-6 md:mt-8">
-        <h4 className="font-semibold text-2xl font-second md:text-3xl ">
+        <h4 className="font-semibold dark:text-gray-300 text-2xl font-second md:text-3xl ">
           The Story Behind Devdit
         </h4>
-        <p className="mt-3 font-main text-lg">
+        <p className="mt-3 font-main dark:text-gray-400 text-lg">
           The idea for Devdit App was born from the need for a space where
           people can exchange ideas freely and constructively. Many existing
           platforms are either too complicated or filled with noise, making it
@@ -41,10 +41,10 @@ const About = () => {
         </p>
       </div>
       <div className="mt-6 md:mt-8">
-        <h4 className="font-semibold text-2xl font-second md:text-3xl ">
+        <h4 className="font-semibold dark:text-gray-300 text-2xl font-second md:text-3xl ">
           Our Vision
         </h4>
-        <p className="mt-3 font-main text-lg">
+        <p className="mt-3 font-main dark:text-gray-400 text-lg">
           At Devdit, our vision is to create a trusted space where discussions
           can spark learning, collaboration, and innovation. We believe
           conversations have the power to shape ideas, solve problems, and bring
@@ -54,10 +54,10 @@ const About = () => {
         </p>
       </div>
       <div className="mt-6 md:mt-8">
-        <h4 className="font-semibold text-2xl font-second md:text-3xl ">
+        <h4 className="font-semibold dark:text-gray-300 text-2xl font-second md:text-3xl ">
           Our Mission
         </h4>
-        <div className="mt-3 font-main text-lg">
+        <div className="mt-3 font-main dark:text-gray-400 text-lg">
           Our mission at Devdit is to make online discussions more
           accessible, organized, and impactful. We aim to provide:
           <ul>
@@ -68,10 +68,10 @@ const About = () => {
         </div>
       </div>
       <div className="mt-6 md:mt-8">
-        <h4 className="font-semibold text-2xl font-second md:text-3xl ">
+        <h4 className="font-semibold dark:text-gray-300 text-2xl font-second md:text-3xl ">
           Why Do People Use It?{" "}
         </h4>
-        <div className="mt-3 font-main text-lg">
+        <div className="mt-3 font-main dark:text-gray-400 text-lg">
           People use Devdit because it is simple, engaging, and
           user-friendly. Unlike many platforms that are overwhelming, Forum App
           makes discussions clear and accessible:
