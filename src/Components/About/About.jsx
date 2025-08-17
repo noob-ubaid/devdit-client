@@ -61,8 +61,8 @@ const About = () => {
           Our mission at Devdit is to make online discussions more
           accessible, organized, and impactful. We aim to provide:
           <ul>
-            {missionPoints.map((mission) => (
-              <li className="list-disc ml-5 mt-1">{mission}</li>
+            {missionPoints.map((mission,index) => (
+              <li key={index} className="list-disc ml-5 mt-1">{mission}</li>
             ))}
           </ul>
         </div>
@@ -76,8 +76,8 @@ const About = () => {
           user-friendly. Unlike many platforms that are overwhelming, Forum App
           makes discussions clear and accessible:
           <ul>
-            {whyPeopleUsePoints.map((use) => (
-              <li className="list-disc ml-5 mt-1">{use}</li>
+            {whyPeopleUsePoints.map((use,index) => (
+              <li key={index} className="list-disc ml-5 mt-1">{use}</li>
             ))}
           </ul>
         </div>

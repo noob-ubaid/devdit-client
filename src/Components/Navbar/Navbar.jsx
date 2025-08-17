@@ -51,6 +51,11 @@ const Navbar = () => {
       <NavLink to="/membership" className={`text-xl font-second font-medium`}>
         Membership
       </NavLink>
+      {user && (
+        <NavLink to="/explore" className={`text-xl font-second font-medium`}>
+          Explore By Tags
+        </NavLink>
+      )}
       <NavLink to="/about" className={`text-xl font-second font-medium`}>
         About Us
       </NavLink>
