@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { axiosSecure } from "../../../hooks/useAxiosSecure";
 import Loader from "../../../shared/Loader";
 
-const Banner = ({ setSearch ,search}) => {
+const Banner = ({ setSearch, search }) => {
   const { data: tags = [], isPending } = useQuery({
     queryKey: ["bannerTags"],
     queryFn: async () => {
@@ -41,7 +41,7 @@ const Banner = ({ setSearch ,search}) => {
           <div className="flex items-center mt-3 justify-center">
             <p className="text-center font-main font-medium text-white">
               Popular topics :
-              <p className="ml-2 inline-block">
+              <span className="ml-1">
                 {tags.map((tag, index) => (
                   <span
                     onClick={() => setSearch(tag.tag)}
@@ -51,7 +51,7 @@ const Banner = ({ setSearch ,search}) => {
                     {tag.tag},
                   </span>
                 ))}
-              </p>
+              </span>
             </p>
           </div>
         </div>

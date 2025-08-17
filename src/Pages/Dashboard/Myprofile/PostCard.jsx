@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router";
 import { AiFillLike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
+import useTimeAgo from '../../../hooks/useTimeAgo'
 const PostCard = ({ post }) => {
   const { tag, title, date,description, _id, UpVote, DownVote } = post;
+  const time = useTimeAgo(date)
   return (
     <div className="rounded bg-gray-100 p-4">
       <div className="flex items-center border-b border-gray-400 pb-4  justify-between ">
         <div className="flex items-center gap-2 md:gap-3">
-         <p className="md:text-xl text-lg font-main md:font-bold font-semibold">{date}</p>
+         <p className="md:text-xl text-lg font-main md:font-bold font-semibold">{time}</p>
         </div>
         <p className="bg-blue-200 px-3 py-1 rounded-full text-blue-800 font-main font-semibold ">
           {tag}

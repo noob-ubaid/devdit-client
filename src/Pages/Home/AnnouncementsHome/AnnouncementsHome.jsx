@@ -36,10 +36,10 @@ const AnnouncementsHome = () => {
               </div>
             </div>
             <div className="my-4">
-              <p className="text-xl md:text-2xl md:text-left font-main font-semibold">
+              <p className="text-xl md:text-2xl md:text-left font-main font-medium">
                 {announce.title}
               </p>
-              <p className="text-lg md:text-left font-second font-medium">
+              <p className="text-lg md:text-left mt-2 text-gray-600 font-second ">
                 {announce.description}
               </p>
             </div>

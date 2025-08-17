@@ -12,7 +12,7 @@ const Footer = () => {
         </div>
         <div>
           <p className="font-main pb-4 border-b mt-4 px-4 md:px-0 border-gray-800 font-medium text-center md:text-lg">
-            Create, join, and discuss in IdeaSphere, a platform to share ideas,
+            Create, join, and discuss in Devdit, a platform to share ideas,
             vote, and engage in meaningful conversations through a clean,
             scalable community space.
           </p>
@@ -29,6 +29,12 @@ const Footer = () => {
             to="/membership"
           >
             Membership
+          </Link>
+          <Link
+            className="font-medium font-second hover:text-main duration-200 text-sm sm:text-base"
+            to="/about"
+          >
+            About Us
           </Link>
           <Link
             className="font-medium font-second hover:text-main duration-200 text-sm sm:text-base"

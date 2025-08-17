@@ -17,6 +17,7 @@ import Comments from "../Pages/Home/Comments/Comments";
 import AdminRoute from "../contexts/AdminRoute";
 import useDashboardHomeRedirect from "../hooks/useDashboardRedirect";
 import Reports from "../Pages/Admin/Reports/Reports";
+import About from "../Components/About/About";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/membership",
         Component: Membership,
+      },
+      {
+        path: "/about",
+        Component: About,
       },
       {
         path: "/post/:id",

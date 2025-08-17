@@ -51,6 +51,9 @@ const Navbar = () => {
       <NavLink to="/membership" className={`text-xl font-second font-medium`}>
         Membership
       </NavLink>
+      <NavLink to="/about" className={`text-xl font-second font-medium`}>
+        About Us
+      </NavLink>
     </div>
   );
   if (isLoading) return <Loader />;
