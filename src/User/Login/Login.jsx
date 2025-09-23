@@ -40,7 +40,6 @@ const Login = () => {
       <div className="flex items-center justify-center my-20">
         <div className="card-body dark:bg-white max-w-md border border-[#0F0F0F26] rounded-md">
           <h2 className="text-2xl font-semibold mt-4 mb-2 border-b border-b-[#0F0F0F26] pb-4 text-center">Login Your Account</h2>
-
           <Google />
           <div className="divider">OR</div>
           <form onSubmit={handleSubmit(onSubmit)}>

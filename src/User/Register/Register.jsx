@@ -12,7 +12,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const location = useLocation()
+  const location = useLocation();
   const { register: signUp, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
   const onSubmit = (data) => {
@@ -28,7 +28,7 @@ const Register = () => {
             setUser(user);
             toast(error);
           });
-        navigate(`${location.state ? location.state : "/"}`)
+        navigate(`${location.state ? location.state : "/"}`);
         const userData = {
           name: data.name,
           email: data.email,

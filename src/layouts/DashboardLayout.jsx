@@ -115,7 +115,7 @@ const DashboardLayout = () => {
 
                 {role === "admin" && (
                   <>
-                  <NavLink
+                    <NavLink
                       to="/dashboard/myProfile"
                       className={({ isActive }) =>
                         `flex items-center font-medium text-lg gap-3 px-3 py-2 font-main rounded transition-colors ${
@@ -177,9 +177,12 @@ const DashboardLayout = () => {
               </li>
             </div>
             <div className="flex items-center justify-between pb-6">
-              <p className="font-medium text-white text-2xl">
-                {user.displayName}
-              </p>
+              <div className="flex items-center gap-2">
+                <img className="size-10 md:size-11 rounded-full bg-center object-cover" src={user.photoURL} alt="" />
+                <p className="font-medium text-white text-2xl">
+                  {user.displayName}
+                </p>
+              </div>
               <button className="end" onClick={() => setDarkMode(!darkMode)}>
                 {darkMode ? (
                   <CiLight size={42} className=" text-white " />

@@ -116,7 +116,7 @@ const Details = () => {
           All Comments
         </Link>
 
-        <div className="flex flex-1 items-center gap-4 justify-center">
+        <div className="flex flex-1 items-center gap-2 justify-center">
           {/* Like */}
           <button
             onClick={() => handleVote("like")}
@@ -126,7 +126,7 @@ const Details = () => {
             <span className="font-medium dark:text-gray-300">{data.UpVote}</span>
           </button>
 
-          <span>|</span>
+          <span className="dark:text-gray-300">|</span>
 
           {/* Dislike */}
           <button
@@ -137,10 +137,10 @@ const Details = () => {
             <span className="font-medium dark:text-gray-300">{data.DownVote}</span>
           </button>
 
-          <span>|</span>
+          <span className="dark:text-gray-300">|</span>
 
           {/* Share */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <WhatsappShareButton disabled={!user} url={shareUrl} title={data.title}>
               <WhatsappIcon size={28} round />
             </WhatsappShareButton>
