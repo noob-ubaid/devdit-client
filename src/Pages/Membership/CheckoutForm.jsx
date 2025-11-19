@@ -87,10 +87,10 @@ const CheckoutForm = () => {
 
   return (
     <form
-      className="max-w-md mx-auto my-8 md:my-12 rounded-md bg-gray-200 p-5"
+      className="max-w-md mx-auto my-8 md:my-12 rounded-md bg-gray-200 dark:bg-gray-800 p-5"
       onSubmit={handleSubmit}
     >
-      <h2 className="font-medium font-main text-2xl md:text-3xl text-center my-4">
+      <h2 className="font-medium font-main text-2xl md:text-3xl text-black dark:text-white text-center my-4">
         Become a member
       </h2>
       <CardElement
