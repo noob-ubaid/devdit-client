@@ -126,15 +126,6 @@
 
 // export default Comment;
 
-
-
-
-
-
-
-
-
-
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import useTimeAgo from "../../../hooks/useTimeAgo";
@@ -190,10 +181,12 @@ const Comment = ({ comment }) => {
             alt={comment.commenterName}
           />
           <div>
-            <p className="text-lg md:text-xl font-medium dark:text-gray-300 font-main">
+            <p className="text-xl md:text-2xl font-medium dark:text-gray-300 font-main">
               {comment.commenterName}
             </p>
-            <p className="font-main text-lg md:text-xl dark:text-gray-300 font-medium">{time}</p>
+            <p className="font-main  dark:text-gray-300 font-medium">
+              {time}
+            </p>
           </div>
         </div>
         <div>
@@ -203,7 +196,7 @@ const Comment = ({ comment }) => {
               className="focus:outline-none cursor-pointer p-2 transition-all hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
               aria-label="More options"
             >
-              <HiDotsVertical size={20} className="dark:text-gray-300"/>
+              <HiDotsVertical size={20} className="dark:text-gray-300" />
             </button>
 
             <AnimatePresence>
