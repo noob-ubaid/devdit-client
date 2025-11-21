@@ -133,6 +133,7 @@ import Modal from "../../../Pages/Home/Modal/Modal";
 import { Button } from "@headlessui/react";
 import { HiDotsVertical } from "react-icons/hi";
 import ReportModal from "../Modal/ReportModal";
+import { IoTime } from "react-icons/io5";
 
 const dropdownVariants = {
   hidden: { opacity: 0, scale: 0.95, transition: { duration: 0.15 } },
@@ -184,9 +185,10 @@ const Comment = ({ comment }) => {
             <p className="text-xl md:text-2xl font-medium dark:text-gray-300 font-main">
               {comment.commenterName}
             </p>
-            <p className="font-main  dark:text-gray-300 font-medium">
-              {time}
-            </p>
+            <div className="flex items-center text-black dark:text-gray-300 font-main gap-1">
+              <IoTime size={14} />
+              <span>{time}</span>
+            </div>
           </div>
         </div>
         <div>

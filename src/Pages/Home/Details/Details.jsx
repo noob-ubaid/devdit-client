@@ -146,7 +146,7 @@ const Details = () => {
                   {data.name}
                 </h3>
                 <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                  <div className="flex items-center gap-1">
+                  <div className="flex font-main items-center gap-1">
                     <IoTime size={14} />
                     <span>{time}</span>
                   </div>

@@ -7,6 +7,9 @@
   --font-main: "Poppins", sans-serif;
   --font-second: "Poppins", sans-serif;
 }
+*{
+  font-family: "Poppins", sans-serif;
+}
 .active {
   color: #0e40f4;
   font-weight: 600;
